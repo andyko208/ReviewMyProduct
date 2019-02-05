@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Review.Domain.Models
 {
-    public class LocalUser
+    public class ProductFromShop
     {
-        public string Firstname { get; set; }
-        public string Lastname { get; set; }
+        public int ProductId { get; set; }
+        public int ShopId { get; set; }
     }
 }
