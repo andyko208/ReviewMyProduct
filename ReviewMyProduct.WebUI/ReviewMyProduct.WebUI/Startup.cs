@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Review.Data.Context;
 
 namespace ReviewMyProduct.WebUI
 {
@@ -15,6 +17,8 @@ namespace ReviewMyProduct.WebUI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=review;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            services.AddDbContext<ReviewDbContext>(options => options.UseSqlServer(connectionString));
             services.AddMvc();
         }
 

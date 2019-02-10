@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.271
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReviewMyProduct.WebUI", "ReviewMyProduct.WebUI\ReviewMyProduct.WebUI.csproj", "{D35947FF-429C-4067-B5C3-257C327C82EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewMyProduct.WebUI", "ReviewMyProduct.WebUI\ReviewMyProduct.WebUI.csproj", "{D35947FF-429C-4067-B5C3-257C327C82EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Review.Domain", "Review.Domain\Review.Domain.csproj", "{72B4ADD9-9FE6-4B5E-8DAD-D3927465B565}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Review.Domain", "Review.Domain\Review.Domain.csproj", "{72B4ADD9-9FE6-4B5E-8DAD-D3927465B565}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Review.Data", "Review.Data\Review.Data.csproj", "{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{72B4ADD9-9FE6-4B5E-8DAD-D3927465B565}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72B4ADD9-9FE6-4B5E-8DAD-D3927465B565}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72B4ADD9-9FE6-4B5E-8DAD-D3927465B565}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
