@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Review.Domain.Models
 {
-    public class Shop
+    public class ProductFromShop
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int Quantity { get; set; }
+        public int ProductId { get; set; }
+        public int ShopId { get; set; }
     }
 }
