@@ -15,12 +15,13 @@ namespace Review.Data.Context
         public DbSet<ProductFromShop> ProductFromShops { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
         // Setting up the provider (SQL Server) and location of a database
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
             // Bad way of providing the connection string
-            optionBuilder.UseSqlServer(@"Sever=(localdb)\mssqllocaldb;Database=review;Trusted_Connection=True");
+            optionBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=review;Trusted_Connection=True");
         }
         
         // Seeding - Populate database with initial data

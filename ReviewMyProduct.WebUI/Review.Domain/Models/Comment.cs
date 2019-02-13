@@ -14,5 +14,7 @@ namespace Review.Domain.Models
         public User User { get; set; }
         
         public Rating Rating { get; set; }
+        public int numThumbsUp { get; set; }
+        public int numThumbsDown { get; set; }
     }
 }
