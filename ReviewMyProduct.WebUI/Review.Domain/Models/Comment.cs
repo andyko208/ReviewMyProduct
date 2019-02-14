@@ -11,10 +11,8 @@ namespace Review.Domain.Models
         public DateTime WrittenDate { get; set; }
 
         public int UserId { get; set; } // foreign key
-        public User User { get; set; }
         
         public Rating Rating { get; set; }
-        public int numThumbsUp { get; set; }
-        public int numThumbsDown { get; set; }
+
     }
 }

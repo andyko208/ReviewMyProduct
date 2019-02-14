@@ -12,7 +12,6 @@ namespace Review.Data.Context
         // query those entities (tables)
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Product> Products { get; set; }
-        public DbSet<ProductFromShop> ProductFromShops { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Rating> Ratings { get; set; }
@@ -27,10 +26,17 @@ namespace Review.Data.Context
         // Seeding - Populate database with initial data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Rating>().HasData(
-                new Rating { Id = 1, ThumbsUp = true },
-                new Rating { Id = 2, ThumbsUp = false }
-                );
+            modelBuilder.Entity<ProductFromShop>()
+                .HasKey(ps => new { ps.ProductId, ps.ShopId });
+
+            modelBuilder.Entity<ProductFromShop>()
+                .HasOne<Product>(ps => ps.Product)
+                .WithMany(p => p.ProductFromShops)
+                .HasForeignKey(ps => ps.ProductId);
+            modelBuilder.Entity<ProductFromShop>()
+                .HasOne<Shop>(ps => ps.Shop)
+                .WithMany(s => s.ProductFromShops)
+                .HasForeignKey(ps => ps.ShopId);
         }
     }
 }

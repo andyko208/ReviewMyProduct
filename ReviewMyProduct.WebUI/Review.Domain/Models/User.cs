@@ -11,7 +11,9 @@ namespace Review.Domain.Models
         public string Lastname { get; set; }
         public string Language { get; set; }
 
+        public int CommentId { get; set; }
+        public ICollection<Comment> Comments { get; set; }
+
         public Rating Rating { get; set; }
-        public int RatingCount { get; set; }    // To limit how many times user can rate
     }
 }

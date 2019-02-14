@@ -9,7 +9,7 @@ namespace Review.Data.Interfaces
     {
         // Read
         Comment GetById(int commentId);
-        ICollection<Comment> GetCommentsByUserId(int userId);
+        ICollection<Comment> GetByUserId(int userId);
 
         // Create
         Comment Create(Comment newComment);
