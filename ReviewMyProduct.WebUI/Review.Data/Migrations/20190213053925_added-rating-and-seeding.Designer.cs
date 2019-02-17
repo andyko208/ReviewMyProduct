@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Review.Data.Context;
 
 namespace Review.Data.Migrations
 {
     [DbContext(typeof(ReviewDbContext))]
-    partial class ReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190213053925_added-rating-and-seeding")]
+    partial class addedratingandseeding
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,11 +29,19 @@ namespace Review.Data.Migrations
 
                     b.Property<string>("Language");
 
+                    b.Property<int?>("RatingId");
+
                     b.Property<int>("UserId");
 
                     b.Property<DateTime>("WrittenDate");
 
+                    b.Property<int>("numThumbsDown");
+
+                    b.Property<int>("numThumbsUp");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RatingId");
 
                     b.HasIndex("UserId");
 
@@ -65,15 +75,17 @@ namespace Review.Data.Migrations
 
             modelBuilder.Entity("Review.Domain.Models.ProductFromShop", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("ProductId");
 
                     b.Property<int>("ShopId");
 
-                    b.HasKey("ProductId", "ShopId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ShopId");
-
-                    b.ToTable("ProductFromShop");
+                    b.ToTable("ProductFromShops");
                 });
 
             modelBuilder.Entity("Review.Domain.Models.Rating", b =>
@@ -82,21 +94,16 @@ namespace Review.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CommentId");
-
                     b.Property<bool>("ThumbsUp");
-
-                    b.Property<int>("UserId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CommentId")
-                        .IsUnique();
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
                     b.ToTable("Ratings");
+
+                    b.HasData(
+                        new { Id = 1, ThumbsUp = true },
+                        new { Id = 2, ThumbsUp = false }
+                    );
                 });
 
             modelBuilder.Entity("Review.Domain.Models.Shop", b =>
@@ -120,23 +127,31 @@ namespace Review.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CommentId");
-
                     b.Property<string>("Firstname");
 
                     b.Property<string>("Language");
 
                     b.Property<string>("Lastname");
 
+                    b.Property<int>("RatingCount");
+
+                    b.Property<int?>("RatingId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("RatingId");
 
                     b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Review.Domain.Models.Comment", b =>
                 {
-                    b.HasOne("Review.Domain.Models.User")
-                        .WithMany("Comments")
+                    b.HasOne("Review.Domain.Models.Rating", "Rating")
+                        .WithMany()
+                        .HasForeignKey("RatingId");
+
+                    b.HasOne("Review.Domain.Models.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -149,30 +164,11 @@ namespace Review.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Review.Domain.Models.ProductFromShop", b =>
+            modelBuilder.Entity("Review.Domain.Models.User", b =>
                 {
-                    b.HasOne("Review.Domain.Models.Product", "Product")
-                        .WithMany("ProductFromShops")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Review.Domain.Models.Shop", "Shop")
-                        .WithMany("ProductFromShops")
-                        .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Review.Domain.Models.Rating", b =>
-                {
-                    b.HasOne("Review.Domain.Models.Comment")
-                        .WithOne("Rating")
-                        .HasForeignKey("Review.Domain.Models.Rating", "CommentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Review.Domain.Models.User")
-                        .WithOne("Rating")
-                        .HasForeignKey("Review.Domain.Models.Rating", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Review.Domain.Models.Rating", "Rating")
+                        .WithMany()
+                        .HasForeignKey("RatingId");
                 });
 #pragma warning restore 612, 618
         }

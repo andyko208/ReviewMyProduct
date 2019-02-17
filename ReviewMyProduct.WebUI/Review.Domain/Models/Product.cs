@@ -15,5 +15,7 @@ namespace Review.Domain.Models
 
         public int CommentId { get; set; }
         public Comment Comment { get; set; }
+        // public ICollection<Shop>  Shops { get; set; }
+        public ICollection<ProductFromShop> ProductFromShops { get; set; }
     }
 }
