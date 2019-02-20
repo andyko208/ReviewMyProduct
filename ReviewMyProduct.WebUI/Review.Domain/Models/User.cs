@@ -11,7 +11,7 @@ namespace Review.Domain.Models
         public string Lastname { get; set; }
         public string Language { get; set; }
 
-        public int CommentId { get; set; }
+        //public int CommentId { get; set; }    // creates cyclical path
         public ICollection<Comment> Comments { get; set; }
 
         public Rating Rating { get; set; }

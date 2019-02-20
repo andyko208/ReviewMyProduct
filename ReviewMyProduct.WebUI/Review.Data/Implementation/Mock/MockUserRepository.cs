@@ -27,10 +27,10 @@ namespace Review.Data.Implementation.Mock
             return true;
         }
 
-        public ICollection<User> GetByCommentId(int commentId)
-        {
-            return Users.FindAll(u => u.CommentId == commentId);
-        }
+        //public ICollection<User> GetByCommentId(int commentId)
+        //{
+        //    return Users.FindAll(u => u.CommentId == commentId);
+        //}
 
         public User GetById(int userId)
         {

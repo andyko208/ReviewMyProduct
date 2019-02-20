@@ -9,7 +9,7 @@ namespace Review.Data.Interfaces
     {
         // Read
         User GetById(int userId);
-        ICollection<User> GetByCommentId(int commentId);
+        //ICollection<User> GetByCommentId(int commentId);
 
         // Create
         User Create(User newUser);
