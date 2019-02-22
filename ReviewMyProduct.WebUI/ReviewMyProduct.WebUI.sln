@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReviewMyProduct.WebUI", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Review.Domain", "Review.Domain\Review.Domain.csproj", "{72B4ADD9-9FE6-4B5E-8DAD-D3927465B565}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Review.Data", "Review.Data\Review.Data.csproj", "{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Review.Data", "Review.Data\Review.Data.csproj", "{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Review.Service", "Review.Service\Review.Service.csproj", "{015E05BD-9E76-4D63-B28B-474431E2E580}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B2F73C5-6DCD-48F1-9339-98B62C500CAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{015E05BD-9E76-4D63-B28B-474431E2E580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{015E05BD-9E76-4D63-B28B-474431E2E580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{015E05BD-9E76-4D63-B28B-474431E2E580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{015E05BD-9E76-4D63-B28B-474431E2E580}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

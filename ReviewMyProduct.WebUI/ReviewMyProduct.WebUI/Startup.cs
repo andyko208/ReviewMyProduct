@@ -8,6 +8,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Review.Data.Context;
+using Review.Data.Implementation.EFCore;
+using Review.Data.Implementation.Mock;
+using Review.Data.Interfaces;
+using Review.Service.Services;
 
 namespace ReviewMyProduct.WebUI
 {
@@ -17,8 +21,14 @@ namespace ReviewMyProduct.WebUI
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //var connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=review;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-            //services.AddDbContext<ReviewDbContext>(options => options.UseSqlServer(connectionString));
+            
+            // Repository Layer
+            GetDependencyResolvedForMockRepositoryLayer(services);
+
+
+            // Service Layer
+            GetDependencyResolvedForServiceLayer(services);
+
             services.AddMvc();
         }
 
@@ -33,6 +43,34 @@ namespace ReviewMyProduct.WebUI
             app.UseStaticFiles();
 
             app.UseMvcWithDefaultRoute();
+        }
+
+        private void GetDependencyResolvedForMockRepositoryLayer(IServiceCollection services)
+        {
+            services.AddScoped<ICommentRepository, MockCommentRepository>();
+            services.AddScoped<IProductRepository, MockProductRepository>();
+            services.AddScoped<IRatingRepository, MockRatingRepository>();
+            services.AddScoped<IShopRepository, MockShopRepository>();
+            services.AddScoped<IUserRepository, MockUserRepository>();
+
+        }
+
+        private void GetDependencyResolvedForEFCoreRepositoryLayer(IServiceCollection services)
+        {
+            services.AddScoped<ICommentRepository, EFCoreCommentRepository>();
+            services.AddScoped<IProductRepository, EFCoreProductRepository>();
+            services.AddScoped<IRatingRepository, EFCoreRatingRepository>();
+            services.AddScoped<IShopRepository, EFCoreShopRepository>();
+            services.AddScoped<IUserRepository, EFCoreUserRepository>();
+        }
+
+        private void GetDependencyResolvedForServiceLayer(IServiceCollection services)
+        {
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IRatingService, RatingService>();
+            services.AddScoped<IShopService, ShopService>();
+            services.AddScoped<IUserService, UserService>();
         }
     }
 }

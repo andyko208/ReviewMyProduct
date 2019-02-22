@@ -8,7 +8,6 @@ namespace Review.Domain.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Quantity { get; set; }
         
         // public ICollection<Product> Products { get; set; }
         public ICollection<ProductFromShop> ProductFromShops { get; set; }

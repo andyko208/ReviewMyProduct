@@ -34,15 +34,15 @@ namespace Review.Data.Implementation.EFCore
             return false;
         }
 
-        public ICollection<User> GetByCommentId(int commentId)
-        {
-            using (var context = new ReviewDbContext())
-            {
-                return context.Users
-                    .Where(u => u.CommentId == commentId)
-                    .ToList();
-            }
-        }
+        //public ICollection<User> GetByCommentId(int commentId)
+        //{
+        //    using (var context = new ReviewDbContext())
+        //    {
+        //        return context.Users
+        //            .Where(u => u.CommentId == commentId)
+        //            .ToList();
+        //    }
+        //}
 
         public User GetById(int userId)
         {
