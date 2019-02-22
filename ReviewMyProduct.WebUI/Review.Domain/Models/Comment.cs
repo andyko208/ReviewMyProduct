@@ -11,6 +11,7 @@ namespace Review.Domain.Models
         public DateTime WrittenDate { get; set; }
         public string Description { get; set; }
 
+        public AppUser User { get; set; }
         public int UserId { get; set; } // foreign key
         
         public Rating Rating { get; set; }
