@@ -16,7 +16,7 @@ namespace Review.Service.Services
 
         public UserService(IUserRepository userRepository)
         {
-            _userRepository = userRepository
+            _userRepository = userRepository;
         }
         public User GetById(int userId)
         {
