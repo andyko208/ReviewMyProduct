@@ -22,7 +22,7 @@ namespace Review.Data.Implementation.Mock
             return Ratings.Single(r => r.Id == ratingId);
         }
 
-        public ICollection<Rating> GetByUserId(int userId)
+        public ICollection<Rating> GetByUserId(string userId)
         {
             return Ratings.FindAll(r => r.UserId == userId);
         }

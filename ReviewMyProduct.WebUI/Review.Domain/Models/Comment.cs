@@ -12,7 +12,7 @@ namespace Review.Domain.Models
         public string Description { get; set; }
 
         public AppUser User { get; set; }
-        public int UserId { get; set; } // foreign key
+        public string UserId { get; set; } // foreign key
         
         public Rating Rating { get; set; }
 

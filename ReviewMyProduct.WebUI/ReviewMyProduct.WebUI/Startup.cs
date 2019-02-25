@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Review.Data.Context;
 using Review.Data.Implementation.EFCore;
 using Review.Data.Implementation.Mock;
 using Review.Data.Interfaces;
+using Review.Domain.Models;
 using Review.Service.Services;
 
 namespace ReviewMyProduct.WebUI
@@ -23,11 +25,15 @@ namespace ReviewMyProduct.WebUI
         {
             
             // Repository Layer
-            GetDependencyResolvedForMockRepositoryLayer(services);
+            GetDependencyResolvedForEFCoreRepositoryLayer(services);
 
 
             // Service Layer
             GetDependencyResolvedForServiceLayer(services);
+
+            services.AddDbContext<ReviewDbContext>();
+            services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<ReviewDbContext>();
 
             services.AddMvc();
         }
@@ -39,8 +45,9 @@ namespace ReviewMyProduct.WebUI
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseStaticFiles();
+
+            app.UseAuthentication();    // make use of identity
 
             app.UseMvcWithDefaultRoute();
         }

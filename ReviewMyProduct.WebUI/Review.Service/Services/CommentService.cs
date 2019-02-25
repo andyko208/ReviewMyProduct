@@ -9,7 +9,7 @@ namespace Review.Service.Services
     public interface ICommentService
     {
         Comment GetById(int commentId);
-        ICollection<Comment> GetByUserId(int userId);
+        ICollection<Comment> GetByUserId(string userId);
     }
     public class CommentService : ICommentService
     {
@@ -25,7 +25,7 @@ namespace Review.Service.Services
             return _commentRepository.GetById(commentId);
         }
 
-        public ICollection<Comment> GetByUserId(int userId)
+        public ICollection<Comment> GetByUserId(string userId)
         {
             return _commentRepository.GetByUserId(userId);
         }

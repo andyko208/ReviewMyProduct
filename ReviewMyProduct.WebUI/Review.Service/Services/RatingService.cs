@@ -9,7 +9,7 @@ namespace Review.Service.Services
     public interface IRatingService
     {
         Rating GetById(int ratingId);
-        ICollection<Rating> GetByUserId(int userId);
+        ICollection<Rating> GetByUserId(string userId);
         ICollection<Rating> GetByCommentId(int commentId);
     }
     public class RatingService : IRatingService
@@ -30,7 +30,7 @@ namespace Review.Service.Services
             return _ratingRepository.GetById(ratingId);
         }
 
-        public ICollection<Rating> GetByUserId(int userId)
+        public ICollection<Rating> GetByUserId(string userId)
         {
             return _ratingRepository.GetByUserId(userId);
         }

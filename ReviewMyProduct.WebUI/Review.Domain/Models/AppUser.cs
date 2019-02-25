@@ -12,6 +12,6 @@ namespace Review.Domain.Models
         public string Language { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
-        public Rating Rating { get; set; }
+        public ICollection<Rating> Ratings { get; set; }
     }
 }
