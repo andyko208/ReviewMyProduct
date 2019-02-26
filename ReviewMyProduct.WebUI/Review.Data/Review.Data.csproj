@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190209234103_initial.cs" />
+    <Compile Remove="Migrations\20190213053925_added-rating-and-seeding.cs" />
+    <Compile Remove="Migrations\20190214062835_many-to-many-relationship.cs" />
+    <Compile Remove="Migrations\20190224050730_identity-provider.cs" />
+    <Compile Remove="Migrations\20190226023048_identity-provider.cs" />
+    <Compile Remove="Migrations\20190226023650_identity-provider.cs" />
+    <Compile Remove="Migrations\20190226023805_identity-provider.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.1.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.4" />

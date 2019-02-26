@@ -14,7 +14,6 @@ namespace Review.Domain.Models
         public AppUser User { get; set; }
         public string UserId { get; set; } // foreign key
         
-        public Rating Rating { get; set; }
 
     }
 }

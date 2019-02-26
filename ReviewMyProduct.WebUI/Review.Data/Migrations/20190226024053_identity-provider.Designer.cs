@@ -10,7 +10,7 @@ using Review.Data.Context;
 namespace Review.Data.Migrations
 {
     [DbContext(typeof(ReviewDbContext))]
-    [Migration("20190224050730_identity-provider")]
+    [Migration("20190226024053_identity-provider")]
     partial class identityprovider
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -358,7 +358,7 @@ namespace Review.Data.Migrations
 
             modelBuilder.Entity("Review.Domain.Models.Rating", b =>
                 {
-                    b.HasOne("Review.Domain.Models.Comment")
+                    b.HasOne("Review.Domain.Models.Comment", "Comment")
                         .WithOne("Rating")
                         .HasForeignKey("Review.Domain.Models.Rating", "CommentId")
                         .OnDelete(DeleteBehavior.Cascade);

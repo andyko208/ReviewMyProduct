@@ -42,9 +42,9 @@ namespace Review.Data.Context
                 .HasForeignKey(r => r.UserId)
                 .HasConstraintName("ForeignKey_Rating_AppUser");
 
-            modelBuilder.Entity<IdentityBuilder>().HasData(
-                new IdentityRole { Name = "User", NormalizedName = "USER" }
-                );
+            //modelBuilder.Entity<IdentityBuilder>().HasData(
+            //    new IdentityRole { Name = "User", NormalizedName = "USER" }
+            //    );
 
             modelBuilder.Entity<ProductFromShop>()
                 .HasKey(ps => new { ps.ProductId, ps.ShopId });
