@@ -42,7 +42,7 @@ namespace Review.Data.Implementation.EFCore
             }
         }
 
-        public ICollection<Comment> GetByUserId(int userId)
+        public ICollection<Comment> GetByUserId(string userId)
         {
             using (var context = new ReviewDbContext())
             {

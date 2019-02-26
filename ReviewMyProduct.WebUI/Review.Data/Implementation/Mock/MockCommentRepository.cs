@@ -32,7 +32,7 @@ namespace Review.Data.Implementation.Mock
             return Comments.Single(c => c.Id == commentId);
         }
 
-        public ICollection<Comment> GetByUserId(int userId)
+        public ICollection<Comment> GetByUserId(string userId)
         {
             return Comments.FindAll(c => c.UserId == userId);
         }

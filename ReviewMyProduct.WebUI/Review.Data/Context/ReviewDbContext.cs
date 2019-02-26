@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Review.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -6,14 +8,14 @@ using System.Text;
 
 namespace Review.Data.Context
 {
-    public class ReviewDbContext : DbContext
+    public class ReviewDbContext : IdentityDbContext<AppUser>
     {
         // Interpret Models -> db entities
         // query those entities (tables)
+
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Shop> Shops { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Rating> Ratings { get; set; }
 
         // Setting up the provider (SQL Server) and location of a database
@@ -26,6 +28,24 @@ namespace Review.Data.Context
         // Seeding - Populate database with initial data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Comment>()
+                .HasOne(c => c.User)
+                .WithMany(u => u.Comments)
+                .HasForeignKey(c => c.UserId)
+                .HasConstraintName("ForeignKey_Comment_AppUser");
+
+            modelBuilder.Entity<Rating>()
+                .HasOne(r => r.User)
+                .WithMany(u => u.Ratings)
+                .HasForeignKey(r => r.UserId)
+                .HasConstraintName("ForeignKey_Rating_AppUser");
+
+            //modelBuilder.Entity<IdentityBuilder>().HasData(
+            //    new IdentityRole { Name = "User", NormalizedName = "USER" }
+            //    );
+
             modelBuilder.Entity<ProductFromShop>()
                 .HasKey(ps => new { ps.ProductId, ps.ShopId });
 

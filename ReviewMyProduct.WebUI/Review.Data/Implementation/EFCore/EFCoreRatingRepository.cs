@@ -28,7 +28,7 @@ namespace Review.Data.Implementation.EFCore
             }
         }
 
-        public ICollection<Rating> GetByUserId(int userId)
+        public ICollection<Rating> GetByUserId(string userId)
         {
             using (var context = new ReviewDbContext())
             {

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Review.Data.Context;
 
 namespace Review.Data.Migrations
 {
     [DbContext(typeof(ReviewDbContext))]
-    partial class ReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190226024053_identity-provider")]
+    partial class identityprovider
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,7 +261,8 @@ namespace Review.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CommentId");
+                    b.HasIndex("CommentId")
+                        .IsUnique();
 
                     b.HasIndex("UserId");
 
@@ -356,8 +359,8 @@ namespace Review.Data.Migrations
             modelBuilder.Entity("Review.Domain.Models.Rating", b =>
                 {
                     b.HasOne("Review.Domain.Models.Comment", "Comment")
-                        .WithMany()
-                        .HasForeignKey("CommentId")
+                        .WithOne("Rating")
+                        .HasForeignKey("Review.Domain.Models.Rating", "CommentId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Review.Domain.Models.AppUser", "User")
