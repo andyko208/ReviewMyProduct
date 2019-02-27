@@ -6,6 +6,7 @@ using Review.Domain.Models;
 using ReviewMyProduct.WebUI.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cozy.WebUI.Controllers
 {
@@ -18,6 +19,16 @@ namespace Cozy.WebUI.Controllers
         {
             _userManager = userManager;
             _roleManager = roleManager;
+        }
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            var vm = new RegisterViewModel
+            {
+                Roles = new SelectList(_roleManager.Roles.ToList())
+            };
+            return View(vm);
         }
 
         [HttpPost]

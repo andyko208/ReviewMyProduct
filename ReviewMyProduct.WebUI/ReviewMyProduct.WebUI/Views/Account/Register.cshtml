@@ -11,5 +11,8 @@
     <br />
     <label asp-for="ConfirmedPassword"></label>
     <input asp-for="ConfirmedPassword" />
+    <br />
+    <label asp-for="Role"></label>
+    <select asp-for="Role" asp-items="@Model.Roles"></select>
     <button type="submit">Register</button>
 </form>
