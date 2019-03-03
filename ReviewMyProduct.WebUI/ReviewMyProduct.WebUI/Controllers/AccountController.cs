@@ -14,11 +14,17 @@ namespace Cozy.WebUI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly List<IdentityRole> _roles;
 
-        public AccountController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager,
+            SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _signInManager = signInManager;
+
+            _roles = _roleManager.Roles.ToList();
         }
 
         [HttpGet]
@@ -32,14 +38,40 @@ namespace Cozy.WebUI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(RegisterViewModel mv)
+        public async Task<IActionResult> Register(RegisterViewModel vm)
         {
             if (ModelState.IsValid)
             {
                 // here we register the user
+                var user = new AppUser
+                {
+                    Email = vm.Email,
+                    UserName = vm.Email
+                };
 
+                var result = await _userManager.CreateAsync(user, vm.Password);
+
+                if (result.Succeeded)
+                {
+                    // apply roles to user
+                    await _userManager.AddToRoleAsync(user, vm.Role);
+
+                    // lets try to log in the user right away
+                    await _signInManager.SignInAsync(user, true);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(error.Code, error.Description);
+                    }
+                }
             }
-            return View(mv);
+            return View(vm);
         }
+
+        [HttpGet]
+        public IActionResult SignIn() => View();
     }
 }
