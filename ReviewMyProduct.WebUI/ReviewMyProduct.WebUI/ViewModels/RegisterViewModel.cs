@@ -18,6 +18,6 @@ namespace ReviewMyProduct.WebUI.ViewModels
         public string ConfirmedPassword { get; set; }
         //[Required, Display(Name = "Select a Role")]
         public string Role { get; set; }
-        public SelectList Roles { get; set; }
+        //public SelectList Roles { get; set; }
     }
 }

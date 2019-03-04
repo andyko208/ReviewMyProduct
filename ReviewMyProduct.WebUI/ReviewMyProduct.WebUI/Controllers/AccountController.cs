@@ -32,7 +32,8 @@ namespace Cozy.WebUI.Controllers
         {
             var vm = new RegisterViewModel
             {
-                Roles = new SelectList(_roleManager.Roles.ToList())
+                //Roles = new SelectList(_roleManager.Roles.ToList())
+                Role = "user"
             };
             return View(vm);
         }
@@ -68,10 +69,45 @@ namespace Cozy.WebUI.Controllers
                     }
                 }
             }
+            // vm.Roles = new SelectList(_roles);
+
             return View(vm);
         }
 
         [HttpGet]
         public IActionResult SignIn() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> SignIn(SignInViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.PasswordSignInAsync(vm.Email, vm.Password, vm.RememberMe, false);
+
+                if(result.Succeeded)
+                {
+                    // get user
+                    var user = await _userManager.FindByEmailAsync(vm.Email);
+
+                    // identify what role has
+                    var isUser = await _userManager.IsInRoleAsync(user, "user");
+
+                    // redirect to right controller (based on role)
+                    if(isUser)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Administrator");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("SignIn", "Username or Password incorrect");
+                }
+            }
+            return View(vm);
+        }
     }
 }
