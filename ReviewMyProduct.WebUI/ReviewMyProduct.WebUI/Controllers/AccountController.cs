@@ -28,15 +28,7 @@ namespace Cozy.WebUI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
-        {
-            var vm = new RegisterViewModel
-            {
-                //Roles = new SelectList(_roleManager.Roles.ToList())
-                Role = "user"
-            };
-            return View(vm);
-        }
+        public IActionResult Register() => View();
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel vm)
@@ -55,7 +47,7 @@ namespace Cozy.WebUI.Controllers
                 if (result.Succeeded)
                 {
                     // apply roles to user
-                    await _userManager.AddToRoleAsync(user, vm.Role);
+                    await _userManager.AddToRoleAsync(user, "user"); 
 
                     // lets try to log in the user right away
                     await _signInManager.SignInAsync(user, true);
