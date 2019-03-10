@@ -101,5 +101,15 @@ namespace Cozy.WebUI.Controllers
             }
             return View(vm);
         }
+
+        public async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+
+            return RedirectToAction("Index", "Home");
+        }
     }
+    // Administrator login information
+    // admin@app.com
+    // Rhrudaud0!
 }

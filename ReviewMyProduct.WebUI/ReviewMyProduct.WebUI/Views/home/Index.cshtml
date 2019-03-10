@@ -4,4 +4,9 @@
 }
 
 <h2>Index</h2>
-
+<div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Welcome, -@User.Identity.Name</p>
+    }
+</div>

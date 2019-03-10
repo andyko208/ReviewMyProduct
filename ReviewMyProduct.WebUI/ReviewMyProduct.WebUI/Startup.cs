@@ -35,6 +35,12 @@ namespace ReviewMyProduct.WebUI
             services.AddIdentity<AppUser, IdentityRole>()
                 .AddEntityFrameworkStores<ReviewDbContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/SignIn";
+                options.AccessDeniedPath = "/Account/Unauthorized";
+            });
+
             services.AddMvc();
         }
 
