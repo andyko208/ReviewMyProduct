@@ -1,18 +1,17 @@
 ﻿@model RegisterViewModel
-<h2>Register</h2>
-
-<form asp-action="register" method="post">
-    <div asp-validation-summary="All"></div>
-    <label asp-for="Email"></label>
-    <input asp-for="Email" />
-    <br>
-    <label asp-for="Password"></label>
-    <input asp-for="Password" />
-    <br />
-    <label asp-for="ConfirmedPassword"></label>
-    <input asp-for="ConfirmedPassword" />
-    <br />
-    @*<label asp-for="Role"></label>
-    <select asp-for="Role" asp-items="@Model.Roles"></select>*@
-    <button type="submit">Register</button>
-</form>
+<div class="container register-form">
+    <h2 class="h2 mb-3 font-weight-normal">Register</h2>
+    <form asp-action="register" method="post" class="form-content">
+        <div asp-validation-summary="All"></div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+        <br>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form-control" />
+        <br />
+        <label asp-for="ConfirmedPassword"></label>
+        <input asp-for="ConfirmedPassword" class="form-control" />
+        <br />
+        <button type="submit" class="btnSubmit">Register</button>
+    </form>
+</div>
