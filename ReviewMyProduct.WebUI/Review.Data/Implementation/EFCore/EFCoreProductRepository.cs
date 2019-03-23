@@ -52,6 +52,16 @@ namespace Review.Data.Implementation.EFCore
             }
         }
 
+        public ICollection<Product> GetByType(string type)
+        {
+            using (var context = new ReviewDbContext())
+            {
+                return context.Products
+                    .Where(p => p.Type == type)
+                    .ToList();
+            }
+        }
+
         public Product Update(Product updatedProduct)
         {
             using (var context = new ReviewDbContext())

@@ -9,6 +9,7 @@ namespace Review.Data.Interfaces
     {
         Product GetById(int productId);
         ICollection<Product> GetByCommentId(int commentId);
+        ICollection<Product> GetByType(string type);
 
         Product Create(Product newProduct);
 

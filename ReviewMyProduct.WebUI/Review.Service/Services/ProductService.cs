@@ -10,6 +10,8 @@ namespace Review.Service.Services
     {
         Product GetById(int productId);
         ICollection<Product> GetByCommentId(int commentId);
+        ICollection<Product> GetByType(string type);
+        void Create(Product newProduct);
     }
     public class ProductService : IProductService
     {
@@ -19,6 +21,12 @@ namespace Review.Service.Services
         {
             _productRepository = productRepository;
         }
+
+        public void Create(Product newProduct)
+        {
+            _productRepository.Create(newProduct);
+        }
+
         public ICollection<Product> GetByCommentId(int commentId)
         {
             return _productRepository.GetByCommentId(commentId);
@@ -27,6 +35,11 @@ namespace Review.Service.Services
         public Product GetById(int productId)
         {
             return _productRepository.GetById(productId);
+        }
+
+        public ICollection<Product> GetByType(string type)
+        {
+            return _productRepository.GetByType(type);
         }
     }
 }

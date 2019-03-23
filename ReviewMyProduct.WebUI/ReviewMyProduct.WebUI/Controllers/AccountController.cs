@@ -112,4 +112,8 @@ namespace Cozy.WebUI.Controllers
     // Administrator login information
     // admin@app.com
     // Rhrudaud0!
+
+    // User login information
+    // andy@app.com
+    // Abc123!
 }
