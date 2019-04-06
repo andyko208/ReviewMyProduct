@@ -1,0 +1,16 @@
+﻿<div class="dropdown show">
+    <div class="dropdown">
+        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Products
+        </button>
+        @if(User.Identity.IsAuthenticated && User.IsInRole("administrator"))
+        {
+            <a class="btn btn-primary" asp-action="create"  asp-controller="Administrator" role="button">Add products</a>
+        }
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" asp-action="Clothing" asp-controller="Product">Clothing</a>
+            <a class="dropdown-item" asp-action="Books" asp-controller="Product">Books</a>
+            <a class="dropdown-item" asp-action="Furnitures" asp-controller="Product">Furnitures</a>
+        </div>
+    </div>
+</div>

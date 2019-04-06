@@ -34,21 +34,22 @@ namespace Review.Data.Implementation.EFCore
             return false;
         }
 
-        public ICollection<Product> GetByCommentId(int commentId)
-        {
-            using (var context = new ReviewDbContext())
-            {
-                return context.Products
-                    .Where(p => p.CommentId == commentId)
-                    .ToList();
-            }
-        }
 
         public Product GetById(int productId)
         {
             using (var context = new ReviewDbContext())
             {
                 return context.Products.Single(p => p.Id == productId);
+            }
+        }
+
+        public ICollection<Product> GetByType(string type)
+        {
+            using (var context = new ReviewDbContext())
+            {
+                return context.Products
+                    .Where(p => p.Type == type)
+                    .ToList();
             }
         }
 

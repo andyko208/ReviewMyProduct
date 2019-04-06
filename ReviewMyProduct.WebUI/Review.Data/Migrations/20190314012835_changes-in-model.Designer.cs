@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Review.Data.Context;
 
 namespace Review.Data.Migrations
 {
     [DbContext(typeof(ReviewDbContext))]
-    partial class ReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190314012835_changes-in-model")]
+    partial class changesinmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +45,8 @@ namespace Review.Data.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "b05ca95c-0f4c-4223-8c8c-90e9dff89df5", ConcurrencyStamp = "9169455c-2e46-4a38-b272-092b4b7debb2", Name = "user", NormalizedName = "USER" },
-                        new { Id = "8c12606e-2b38-4fe0-83d9-f846b349b544", ConcurrencyStamp = "6879cab7-b1ba-4c06-8280-180a92b699dd", Name = "administrator", NormalizedName = "ADMINISTRATOR" }
+                        new { Id = "a5c08ac3-1b67-462e-a2de-57d1e537ac7b", ConcurrencyStamp = "1d5e2219-8c7a-461a-b08b-05963f9fa916", Name = "user", NormalizedName = "USER" },
+                        new { Id = "b56f20cf-1cec-45e7-8392-2192b4b98c39", ConcurrencyStamp = "255b6003-0037-428d-8efa-8bf94a8f5869", Name = "administrator", NormalizedName = "ADMINISTRATOR" }
                     );
                 });
 
@@ -214,7 +216,7 @@ namespace Review.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CommentId");
+                    b.Property<int>("CommentId");
 
                     b.Property<string>("Description");
 
@@ -311,7 +313,8 @@ namespace Review.Data.Migrations
                 {
                     b.HasOne("Review.Domain.Models.Comment", "Comment")
                         .WithMany()
-                        .HasForeignKey("CommentId");
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Review.Domain.Models.Rating", b =>

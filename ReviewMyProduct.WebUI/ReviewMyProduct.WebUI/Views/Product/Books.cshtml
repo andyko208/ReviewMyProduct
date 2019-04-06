@@ -1,0 +1,21 @@
+﻿@model ICollection<Product>
+<h2>Books</h2>
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-secondary">
+        You don't have any products at the moment!
+    </div>
+}
+else
+{
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>
+                <img src="@p.ImageURL" alt="Product Image" />
+            </td>
+            <td>@p.Name</td>
+            <td>@p.Type</td>
+        </tr>
+    }
+}

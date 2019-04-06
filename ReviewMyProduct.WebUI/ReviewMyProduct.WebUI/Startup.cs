@@ -63,7 +63,6 @@ namespace ReviewMyProduct.WebUI
             services.AddScoped<ICommentRepository, MockCommentRepository>();
             services.AddScoped<IProductRepository, MockProductRepository>();
             services.AddScoped<IRatingRepository, MockRatingRepository>();
-            services.AddScoped<IShopRepository, MockShopRepository>();
 
         }
 
@@ -72,7 +71,6 @@ namespace ReviewMyProduct.WebUI
             services.AddScoped<ICommentRepository, EFCoreCommentRepository>();
             services.AddScoped<IProductRepository, EFCoreProductRepository>();
             services.AddScoped<IRatingRepository, EFCoreRatingRepository>();
-            services.AddScoped<IShopRepository, EFCoreShopRepository>();
         }
 
         private void GetDependencyResolvedForServiceLayer(IServiceCollection services)
@@ -80,7 +78,6 @@ namespace ReviewMyProduct.WebUI
             services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IRatingService, RatingService>();
-            services.AddScoped<IShopService, ShopService>();
         }
     }
 }

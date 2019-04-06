@@ -27,14 +27,15 @@ namespace Review.Data.Implementation.Mock
             return true;
         }
 
-        public ICollection<Product> GetByCommentId(int commentId)
-        {
-            return Products.FindAll(p => p.CommentId == commentId);
-        }
 
         public Product GetById(int productId)
         {
             return Products.Single(p => p.Id == productId);
+        }
+
+        public ICollection<Product> GetByType(string type)
+        {
+            return Products.FindAll(p => p.Type == type);
         }
 
         public Product Update(Product updatedProduct)

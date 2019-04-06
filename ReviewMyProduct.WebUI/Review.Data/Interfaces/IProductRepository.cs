@@ -8,7 +8,7 @@ namespace Review.Data.Interfaces
     public interface IProductRepository
     {
         Product GetById(int productId);
-        ICollection<Product> GetByCommentId(int commentId);
+        ICollection<Product> GetByType(string type);
 
         Product Create(Product newProduct);
 
