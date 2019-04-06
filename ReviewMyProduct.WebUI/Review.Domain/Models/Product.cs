@@ -13,7 +13,6 @@ namespace Review.Domain.Models
         public string ImageURL { get; set; }
         public string ShopURL { get; set; }
 
-        public int CommentId { get; set; }
         public Comment Comment { get; set; }
     }
 }

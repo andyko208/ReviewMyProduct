@@ -9,7 +9,6 @@ namespace Review.Service.Services
     public interface IProductService
     {
         Product GetById(int productId);
-        ICollection<Product> GetByCommentId(int commentId);
         ICollection<Product> GetByType(string type);
         void Create(Product newProduct);
     }
@@ -25,11 +24,6 @@ namespace Review.Service.Services
         public void Create(Product newProduct)
         {
             _productRepository.Create(newProduct);
-        }
-
-        public ICollection<Product> GetByCommentId(int commentId)
-        {
-            return _productRepository.GetByCommentId(commentId);
         }
 
         public Product GetById(int productId)

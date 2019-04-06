@@ -59,7 +59,7 @@ namespace ReviewMyProduct.WebUI.Controllers
                 // append new image location to new Home
                 newProduct.ImageURL = $"/images/products/{newImageName}";
             }
-
+            // newProduct.CommentId = 0; not sure about this yet 4/4
             // save newHome
             _productService.Create(newProduct);
 

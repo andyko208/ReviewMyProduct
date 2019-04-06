@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Review.Data.Implementation.EFCore;
 using Review.Domain.Models;
 using Review.Service.Services;
 
@@ -13,6 +14,7 @@ namespace ReviewMyProduct.WebUI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IProductService _productService;
+        private readonly EFCoreProductRepository _ProdRepo;
 
         public ProductController(UserManager<AppUser> userManager, IProductService productService)
         {
@@ -44,6 +46,11 @@ namespace ReviewMyProduct.WebUI.Controllers
         {
             var furnitures = _productService.GetByType("Furniture");
             return View(furnitures);
+        }
+
+        public IActionResult Detail(int id)
+        {
+            return View(_ProdRepo.GetById(id));
         }
     }
 }
