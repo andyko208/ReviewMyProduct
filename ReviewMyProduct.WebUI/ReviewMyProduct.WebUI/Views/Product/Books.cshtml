@@ -11,11 +11,15 @@ else
     @foreach (var p in Model)
     {
         <tr>
-            <td>
-                <img src="@p.ImageURL" alt="Product Image" />
-            </td>
-            <td>@p.Name</td>
-            <td>@p.Type</td>
+            <div class="content">
+                <td>
+                    <a href='@Url.Action("Detail", "Product", new {id = p.Id})'>
+                        <img src="@p.ImageURL" alt="Product Image" />
+                        @p.Name
+                        @p.Type
+                    </a>
+                <td>
+            </div>   
         </tr>
     }
 }

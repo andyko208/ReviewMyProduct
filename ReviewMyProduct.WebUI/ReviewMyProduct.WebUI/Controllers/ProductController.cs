@@ -14,7 +14,6 @@ namespace ReviewMyProduct.WebUI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IProductService _productService;
-        private readonly EFCoreProductRepository _ProdRepo;
 
         public ProductController(UserManager<AppUser> userManager, IProductService productService)
         {
@@ -50,7 +49,7 @@ namespace ReviewMyProduct.WebUI.Controllers
 
         public IActionResult Detail(int id)
         {
-            return View(_ProdRepo.GetById(id));
+            return View(_productService.GetById(id));
         }
     }
 }
