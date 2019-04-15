@@ -10,6 +10,7 @@ namespace Review.Service.Services
     {
         Comment GetById(int commentId);
         ICollection<Comment> GetByUserId(string userId);
+        void Create(Comment newComment);
     }
     public class CommentService : ICommentService
     {
@@ -18,6 +19,11 @@ namespace Review.Service.Services
         public CommentService(ICommentRepository commentRepository)
         {
             _commentRepository = commentRepository;
+        }
+
+        public void Create(Comment newComment)
+        {
+            _commentRepository.Create(newComment);
         }
 
         public Comment GetById(int commentId)

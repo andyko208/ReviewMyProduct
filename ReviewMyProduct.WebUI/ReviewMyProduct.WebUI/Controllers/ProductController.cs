@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Review.Data.Implementation.EFCore;
 using Review.Domain.Models;
 using Review.Service.Services;
+using ReviewMyProduct.WebUI.ViewModels;
 
 namespace ReviewMyProduct.WebUI.Controllers
 {
@@ -14,11 +15,14 @@ namespace ReviewMyProduct.WebUI.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IProductService _productService;
+        private readonly ICommentService _commentService;
 
-        public ProductController(UserManager<AppUser> userManager, IProductService productService)
+        public ProductController(UserManager<AppUser> userManager, IProductService productService, 
+            ICommentService commentService)
         {
             _userManager = userManager;
             _productService = productService;
+            _commentService = commentService;
         }
 
         public IActionResult Index()
@@ -47,9 +51,27 @@ namespace ReviewMyProduct.WebUI.Controllers
             return View(furnitures);
         }
 
-        public IActionResult Detail(int id)
+        [HttpGet]
+        public IActionResult Detail(int id, DetailViewModel vm)
         {
-            return View(_productService.GetById(id));
+            vm.Product = _productService.GetById(id);
+
+            //if (ModelState.IsValid)
+            //{
+            //    var comment = new Comment
+            //    {
+            //        WrittenDate = DateTime.Now,
+            //        Description = vm.Description,
+            //        UserId = _userManager.GetUserId(User),
+            //        //ProductId = id
+            //    };
+            //    _commentService.Create(comment);
+            //}
+            //else redirect to the login page
+
+
+            return View(vm);
+
         }
     }
 }

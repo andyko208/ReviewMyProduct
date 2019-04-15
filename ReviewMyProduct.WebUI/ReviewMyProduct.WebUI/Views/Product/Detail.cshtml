@@ -1,8 +1,4 @@
-﻿@model Review.Domain.Models.Product
-
-@{
-    ViewData["Title"] = "Detail";
-}
+﻿@model DetailViewModel
 
 <h2>Detail</h2>
 
@@ -12,47 +8,62 @@
     <dl class="dl-horizontal">
         <dd>
 
-            <img src="@Model.ImageURL">
+            <img src="@Model.Product.ImageURL">
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.Product.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Name)
+            @Html.DisplayFor(model => model.Product.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Type)
+            @Html.DisplayNameFor(model => model.Product.Type)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Type)
+            @Html.DisplayFor(model => model.Product.Type)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Product.Description)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            @Html.DisplayFor(model => model.Product.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ImageURL)
+            @Html.DisplayNameFor(model => model.Product.ImageURL)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ImageURL)
+            @Html.DisplayFor(model => model.Product.ImageURL)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.ShopURL)
+            @Html.DisplayNameFor(model => model.Product.ShopURL)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.ShopURL)
+            <a href="@Html.DisplayFor(model => model.Product.ShopURL)">@Html.DisplayFor(model => model.Product.ShopURL)</a>
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Comment)
+            @Html.DisplayNameFor(model => model.Product.Comments)
         </dt>
         <dd>
-            <input type="text"><input type="submit" value="Post">
+            @*@foreach (var c in Model.Product.Comments)
+            {
+                figure out what Product.Comments does
+            }*@
         </dd>
+        <dd>
+            <form asp-action="Detail" method="post">
+                <input asp-for="Description" type="text"> <input type="submit">
+            </form>
+        </dd>
+
+
     </dl>
+
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.Product.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+
+
+
