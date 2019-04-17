@@ -32,6 +32,11 @@ namespace Review.Data.Implementation.Mock
             return Comments.Single(c => c.Id == commentId);
         }
 
+        public ICollection<Comment> GetByProductId(int productId)
+        {
+            return Comments.FindAll(c => c.productId == productId);
+        }
+
         public ICollection<Comment> GetByUserId(string userId)
         {
             return Comments.FindAll(c => c.UserId == userId);

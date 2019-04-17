@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Review.Data.Context;
 using Review.Data.Implementation.EFCore;
 using Review.Domain.Models;
 using Review.Service.Services;
@@ -51,27 +53,35 @@ namespace ReviewMyProduct.WebUI.Controllers
             return View(furnitures);
         }
 
-        [HttpGet]
-        public IActionResult Detail(int id, DetailViewModel vm)
+        // Specific details of a certain product
+        public IActionResult Details(int id, CreateCommentViewModel vm)
         {
             vm.Product = _productService.GetById(id);
-
-            //if (ModelState.IsValid)
-            //{
-            //    var comment = new Comment
-            //    {
-            //        WrittenDate = DateTime.Now,
-            //        Description = vm.Description,
-            //        UserId = _userManager.GetUserId(User),
-            //        //ProductId = id
-            //    };
-            //    _commentService.Create(comment);
-            //}
-            //else redirect to the login page
-
-
+            //Product currentProduct = _productService.GetById(id);
+            // return View(currentProduct);
             return View(vm);
-
         }
+
+        [HttpGet]
+        public IActionResult CreateComment() => View();
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult CreateComment(int id, CreateCommentViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                Comment newComment = vm.Comment;
+                
+                newComment.UserId = _userManager.GetUserId(User);
+                newComment.WrittenDate = DateTime.Now;
+                newComment.productId = id;
+                _commentService.Create(newComment);
+            }
+            vm.Comments = _commentService.GetByProductId(id);
+            return View(vm);
+            //return RedirectToAction("Details");
+        }
+
     }
 }

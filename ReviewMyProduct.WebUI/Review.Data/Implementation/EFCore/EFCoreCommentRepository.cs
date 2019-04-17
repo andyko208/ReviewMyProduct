@@ -52,15 +52,15 @@ namespace Review.Data.Implementation.EFCore
             }
         }
 
-        //public ICollection<Comment> GetByProductId(int productId)
-        //{
-        //    using (var context = new ReviewDbContext())
-        //    {
-        //        return context.Comments
-        //            .Where(c => c.productId == productId)
-        //            .ToList();
-        //    }
-        //}
+        public ICollection<Comment> GetByProductId(int productId)
+        {
+            using (var context = new ReviewDbContext())
+            {
+                return context.Comments
+                    .Where(c => c.productId == productId)
+                    .ToList();
+            }
+        }
 
         public Comment Update(Comment updatedComment)
         {

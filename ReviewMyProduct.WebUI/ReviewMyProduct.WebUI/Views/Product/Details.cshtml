@@ -1,15 +1,16 @@
-﻿@model DetailViewModel
+﻿@model CreateCommentViewModel
+@*@model Review.Domain.Models.Product*@
+@{
+    ViewData["Title"] = "Details";
+}
 
-<h2>Detail</h2>
+<h2>Details</h2>
 
 <div>
     <h4>Product</h4>
     <hr />
+    <img src="@Html.DisplayFor(model => model.Product.ImageURL)" />
     <dl class="dl-horizontal">
-        <dd>
-
-            <img src="@Model.Product.ImageURL">
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Product.Name)
         </dt>
@@ -29,41 +30,23 @@
             @Html.DisplayFor(model => model.Product.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Product.ImageURL)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Product.ImageURL)
-        </dd>
-        <dt>
             @Html.DisplayNameFor(model => model.Product.ShopURL)
         </dt>
         <dd>
             <a href="@Html.DisplayFor(model => model.Product.ShopURL)">@Html.DisplayFor(model => model.Product.ShopURL)</a>
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Product.Comments)
-        </dt>
         <dd>
-            @*@foreach (var c in Model.Product.Comments)
+            <a asp-action="CreateComment" asp-route-id="@Model.Product.Id">Write a comment</a>
+        </dd>
+        <dd>
+            @foreach (var c in Model.Comments)
             {
-                figure out what Product.Comments does
-            }*@
+                @c.Description @c.WrittenDate @c.User.UserName
+            }
         </dd>
-        <dd>
-            <form asp-action="Detail" method="post">
-                <input asp-for="Description" type="text"> <input type="submit">
-            </form>
-        </dd>
-
-
     </dl>
-
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Product.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="@Model.Type">Back to List</a>*@
 </div>
-
-
-
-
