@@ -59,6 +59,7 @@ namespace ReviewMyProduct.WebUI.Controllers
             vm.Product = _productService.GetById(id);
             //Product currentProduct = _productService.GetById(id);
             // return View(currentProduct);
+            vm.Comments = _commentService.GetByProductId(id);
             return View(vm);
         }
 
@@ -78,10 +79,17 @@ namespace ReviewMyProduct.WebUI.Controllers
                 newComment.productId = id;
                 _commentService.Create(newComment);
             }
-            vm.Comments = _commentService.GetByProductId(id);
+
             return View(vm);
             //return RedirectToAction("Details");
         }
+
+        // When I have to create another page for comments/rating
+        //public IActionResult ViewComment(int id)
+        //{
+        //    var comments = _commentService.GetByProductId(id);
+        //    return View(comments);
+        //}
 
     }
 }

@@ -36,14 +36,32 @@
             <a href="@Html.DisplayFor(model => model.Product.ShopURL)">@Html.DisplayFor(model => model.Product.ShopURL)</a>
         </dd>
         <dd>
-            <a asp-action="CreateComment" asp-route-id="@Model.Product.Id">Write a comment</a>
+            <a asp-action="CreateComment" asp-route-id="@Model.Product.Id">Write a comment| </a>
+            <a asp-action="ViewComment" asp-route-id="@Model.Product.Id">View comments</a>
         </dd>
         <dd>
             @foreach (var c in Model.Comments)
             {
-                @c.Description @c.WrittenDate @c.User.UserName
+                <div>
+                    @c.UserId
+                </div>
+                <div>
+                    @c.Description
+                </div>
+                <span style="margin-right:4px;">
+                    @c.WrittenDate
+                </span>
+                <span style="border:solid; border-width:1px;">
+                    hello
+                </span>
+                <span style="border:solid; border-width:1px;">
+                    hello
+                </span>
+                <div style="margin-top:15px"></div>
+                <hr style=""/>
             }
         </dd>
+
     </dl>
 </div>
 <div>
