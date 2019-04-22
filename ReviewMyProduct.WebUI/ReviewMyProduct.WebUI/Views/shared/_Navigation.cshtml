@@ -1,0 +1,53 @@
+﻿<div class="dropdown" style="display:inline-flex">
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" asp-action="Clothings" asp-controller="Product">Clothing</a>
+        <a class="dropdown-item" asp-action="Books" asp-controller="Product">Books</a>
+        <a class="dropdown-item" asp-action="Furnitures" asp-controller="Product">Furnitures</a>
+    </div>
+    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        ≡
+    </button>
+</div>
+<ul class="nav" style="display:inline-flex; float:right">
+    <li class="nav-item">
+        @*<img src="~/images/3b6810b1-a1d1-4261-b8b9-f2233c983a2c.png">*@<a class="nav-link active" asp-action="Index" asp-controller="Home">Home</a>
+    </li>
+
+    @*Anonymous*@
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <li class="nav-item">
+            <a class="nav-link active" asp-action="Register" asp-controller="Account">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" asp-action="SignIn" asp-controller="Account">Sign In</a>
+        </li>
+    }
+    else
+    {
+        if (!User.IsInRole("administrator"))
+        {
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="MyComments" asp-controller="home">My Comments</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="Product-Request" asp-controller="home">Request</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="SignOut" asp-controller="Account">Sign Out</a>
+            </li>
+        }
+        else
+        {
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="create" asp-controller="Administrator">Add Product</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="Product-Request" asp-controller="home">Request</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" asp-action="SignOut" asp-controller="Account">Sign Out</a>
+            </li>
+        }
+    }
+</ul>

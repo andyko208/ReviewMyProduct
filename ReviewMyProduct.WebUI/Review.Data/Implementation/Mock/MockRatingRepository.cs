@@ -12,6 +12,14 @@ namespace Review.Data.Implementation.Mock
     {
         private List<Rating> Ratings = new List<Rating>();
 
+        public Rating Create(Rating newRating)
+        {
+            newRating.Id = Ratings.OrderByDescending(r => r.Id).Single().Id + 1;
+            Ratings.Add(newRating);
+
+            return newRating;
+        }
+
         public ICollection<Rating> GetByCommentId(int commentId)
         {
             return Ratings.FindAll(r => r.CommentId == commentId);

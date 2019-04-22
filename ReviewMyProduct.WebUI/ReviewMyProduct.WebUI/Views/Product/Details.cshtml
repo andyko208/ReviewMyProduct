@@ -1,5 +1,5 @@
 ﻿@model CreateCommentViewModel
-@*@model Review.Domain.Models.Product*@
+
 @{
     ViewData["Title"] = "Details";
 }
@@ -51,9 +51,18 @@
                 <span style="margin-right:4px;">
                     @c.WrittenDate
                 </span>
-                <span style="border:solid; border-width:1px;">
-                    hello
-                </span>
+                
+                <form asp-action="Details" method="post">
+                    <span style="border:solid; border-width:1px;">
+                        <label asp-for="ThumbsUp">
+                            <input type="button" asp-for="ThumbsUp" value="@c.Id" />
+                            @*display number of ThumbsUp a comment has in value*@
+                            <input type="text" asp-for="CommentId" value="@c.Id" />
+                        </label>
+                        <button type="submit"></button>
+                    </span>
+                </form>
+                
                 <span style="border:solid; border-width:1px;">
                     hello
                 </span>
@@ -65,6 +74,6 @@
     </dl>
 </div>
 <div>
-    @*<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="@Model.Type">Back to List</a>*@
+    <a asp-action="Edit" asp-route-id="@Model.Product.Id">Edit</a> |
+    <a asp-action="@Model.Product.Type">Back to List</a>
 </div>

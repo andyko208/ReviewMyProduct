@@ -18,13 +18,15 @@ namespace ReviewMyProduct.WebUI.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IProductService _productService;
         private readonly ICommentService _commentService;
+        private readonly IRatingService _ratingService;
 
         public ProductController(UserManager<AppUser> userManager, IProductService productService, 
-            ICommentService commentService)
+            ICommentService commentService, IRatingService ratingService)
         {
             _userManager = userManager;
             _productService = productService;
             _commentService = commentService;
+            _ratingService = ratingService;
         }
 
         public IActionResult Index()
@@ -35,31 +37,55 @@ namespace ReviewMyProduct.WebUI.Controllers
         // List of product, type: Book
         public IActionResult Books()
         {
-            var books = _productService.GetByType("Book");
+            var books = _productService.GetByType("Books");
             return View(books);
         }
 
         // List of product, type: Clothing
-        public IActionResult Clothing()
+        public IActionResult Clothings()
         {
-            var clothings = _productService.GetByType("Clothing");
+            var clothings = _productService.GetByType("Clothings");
             return View(clothings);
         }
 
         // List of product, type: Furniture
         public IActionResult Furnitures()
         {
-            var furnitures = _productService.GetByType("Furniture");
+            var furnitures = _productService.GetByType("Furnitures");
             return View(furnitures);
         }
 
         // Specific details of a certain product
+        [HttpGet]
         public IActionResult Details(int id, CreateCommentViewModel vm)
         {
             vm.Product = _productService.GetById(id);
-            //Product currentProduct = _productService.GetById(id);
-            // return View(currentProduct);
             vm.Comments = _commentService.GetByProductId(id);
+
+            //need to display the input buttons so that datas can be passed on here
+            Rating newRating = new Rating();
+            newRating.ThumbsUp = vm.ThumbsUp;
+            newRating.CommentId = vm.CommentId;
+            newRating.UserId = _userManager.GetUserId(User);
+            //_ratingService.Create(newRating);
+
+            var upCount = 0;
+            var downCount = 0;
+            foreach (var comment in vm.Comments)
+            {
+                foreach (var rating in _ratingService.GetByCommentId(comment.Id))
+                {
+                    if (rating.ThumbsUp)
+                        upCount++;
+                    else
+                    {
+                        downCount++;
+                    }
+                }
+                //comment.Thumbsup = upCount;
+                //comment.ThumbsDown = downCount;
+            }
+
             return View(vm);
         }
 
@@ -77,6 +103,7 @@ namespace ReviewMyProduct.WebUI.Controllers
                 newComment.UserId = _userManager.GetUserId(User);
                 newComment.WrittenDate = DateTime.Now;
                 newComment.productId = id;
+                //newComment.UserName = _userManager.GetUserName(User);
                 _commentService.Create(newComment);
             }
 

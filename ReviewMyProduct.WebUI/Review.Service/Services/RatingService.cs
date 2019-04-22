@@ -8,6 +8,7 @@ namespace Review.Service.Services
 {
     public interface IRatingService
     {
+        void Create(Rating newRating);
         Rating GetById(int ratingId);
         ICollection<Rating> GetByUserId(string userId);
         ICollection<Rating> GetByCommentId(int commentId);
@@ -20,6 +21,12 @@ namespace Review.Service.Services
         {
             _ratingRepository = ratingRepository;
         }
+
+        public void Create(Rating newRating)
+        {
+            _ratingRepository.Create(newRating);
+        }
+
         public ICollection<Rating> GetByCommentId(int commentId)
         {
             return _ratingRepository.GetByCommentId(commentId);

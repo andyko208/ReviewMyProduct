@@ -7,6 +7,7 @@ namespace Review.Data.Interfaces
 {
     public interface IRatingRepository
     {
+        Rating Create(Rating newRating);
         Rating GetById(int ratingId);
         ICollection<Rating> GetByUserId(string userId);
         ICollection<Rating> GetByCommentId(int commentId);
