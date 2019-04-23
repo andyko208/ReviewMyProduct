@@ -63,12 +63,6 @@ namespace ReviewMyProduct.WebUI.Controllers
             vm.Comments = _commentService.GetByProductId(id);
 
             //need to display the input buttons so that datas can be passed on here
-            Rating newRating = new Rating();
-            newRating.ThumbsUp = vm.ThumbsUp;
-            newRating.CommentId = vm.CommentId;
-            newRating.UserId = _userManager.GetUserId(User);
-            //_ratingService.Create(newRating);
-
             var upCount = 0;
             var downCount = 0;
             foreach (var comment in vm.Comments)
@@ -85,7 +79,6 @@ namespace ReviewMyProduct.WebUI.Controllers
                 //comment.Thumbsup = upCount;
                 //comment.ThumbsDown = downCount;
             }
-
             return View(vm);
         }
 
@@ -111,12 +104,46 @@ namespace ReviewMyProduct.WebUI.Controllers
             //return RedirectToAction("Details");
         }
 
-        // When I have to create another page for comments/rating
-        //public IActionResult ViewComment(int id)
-        //{
-        //    var comments = _commentService.GetByProductId(id);
-        //    return View(comments);
-        //}
+        public IActionResult ThumbsUp(int id, CreateCommentViewModel vm)
+        {
+            if(User.Identity.IsAuthenticated)
+            {
+                // if rating found by userId exist as ThumbsUp = true(1) already
+                if (true)
+                {
+                    Rating newRating = new Rating();
+                    newRating.ThumbsUp = true;
+                    newRating.CommentId = id;
+                    newRating.UserId = _userManager.GetUserId(User);
+                    _ratingService.Create(newRating);
+                }
+            }
+            return View();
+        }
 
-    }
+        public IActionResult ThumbsDown(int id, CreateCommentViewModel vm)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                // if rating found by userId exist as ThumbsUp = false(0) already
+                if (true)
+                {
+                    Rating newRating = new Rating();
+                    newRating.ThumbsUp = false;
+                    newRating.CommentId = id;
+                    newRating.UserId = _userManager.GetUserId(User);
+                    _ratingService.Create(newRating);
+                }
+            }
+            return View();
+        }
+        
+
+    // When I have to create another page for comments/rating
+    //public IActionResult ViewComment(int id)
+    //{
+    //    var comments = _commentService.GetByProductId(id);
+    //    return View(comments);
+    //}
+}
 }

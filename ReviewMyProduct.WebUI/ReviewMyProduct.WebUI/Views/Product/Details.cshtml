@@ -51,20 +51,18 @@
                 <span style="margin-right:4px;">
                     @c.WrittenDate
                 </span>
-                
-                <form asp-action="Details" method="post">
-                    <span style="border:solid; border-width:1px;">
-                        <label asp-for="ThumbsUp">
-                            <input type="button" asp-for="ThumbsUp" value="@c.Id" />
-                            @*display number of ThumbsUp a comment has in value*@
-                            <input type="text" asp-for="CommentId" value="@c.Id" />
-                        </label>
-                        <button type="submit"></button>
-                    </span>
-                </form>
-                
                 <span style="border:solid; border-width:1px;">
-                    hello
+                    <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id})'>
+                        👍 @*@c.numThumbsDown*@
+                    </a>
+                        @*display number of ThumbsUp a comment has in value*@
+                    @*<button type="submit"></button>*@
+                </span>
+                <span style="border:solid; border-width:1px;">
+                    <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id })'>
+                        👎 @*@c.numThumbUp*@
+                    </a>
+                    @*display number of ThumbsUp a comment has in value*@
                 </span>
                 <div style="margin-top:15px"></div>
                 <hr style=""/>
