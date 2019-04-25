@@ -12,6 +12,7 @@ namespace Review.Service.Services
         Rating GetById(int ratingId);
         ICollection<Rating> GetByUserId(string userId);
         ICollection<Rating> GetByCommentId(int commentId);
+        ICollection<Rating> GetByCommentUserId(int commentId, string userId);
     }
     public class RatingService : IRatingService
     {
@@ -30,6 +31,11 @@ namespace Review.Service.Services
         public ICollection<Rating> GetByCommentId(int commentId)
         {
             return _ratingRepository.GetByCommentId(commentId);
+        }
+
+        public ICollection<Rating> GetByCommentUserId(int commentId, string userId)
+        {
+            return _ratingRepository.GetByCommentUserId(commentId, userId);
         }
 
         public Rating GetById(int ratingId)

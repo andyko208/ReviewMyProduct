@@ -19,6 +19,6 @@ namespace Review.Data.Interfaces
         Comment Update(Comment updatedComment);
 
         // Delete
-        bool DeleteById(int commentId);
+        void DeleteById(int commentId);
     }
 }

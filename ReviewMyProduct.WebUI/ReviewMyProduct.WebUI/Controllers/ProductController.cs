@@ -55,18 +55,35 @@ namespace ReviewMyProduct.WebUI.Controllers
             return View(furnitures);
         }
 
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var productToUpdate = _productService.GetById(id);
+
+            return View(productToUpdate);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Product product)
+        {
+            if(ModelState.IsValid)
+            {
+                _productService.Update(product);
+                return RedirectToAction(product.Type);
+            }
+            return View(product);
+        }
+
         // Specific details of a certain product
         [HttpGet]
         public IActionResult Details(int id, CreateCommentViewModel vm)
         {
             vm.Product = _productService.GetById(id);
             vm.Comments = _commentService.GetByProductId(id);
-
-            //need to display the input buttons so that datas can be passed on here
-            var upCount = 0;
-            var downCount = 0;
             foreach (var comment in vm.Comments)
             {
+                var upCount = 0;
+                var downCount = 0;
                 foreach (var rating in _ratingService.GetByCommentId(comment.Id))
                 {
                     if (rating.ThumbsUp)
@@ -76,9 +93,11 @@ namespace ReviewMyProduct.WebUI.Controllers
                         downCount++;
                     }
                 }
-                //comment.Thumbsup = upCount;
-                //comment.ThumbsDown = downCount;
+                comment.numThumbsUp = upCount;
+                comment.numThumbsDown = downCount;  // figure out how to update columns numThumbsUp in db
+                _commentService.Update(comment);    // let the sorting by numThumbsUp work
             }
+            vm.Comments = vm.Comments.OrderBy(c => c.numThumbsUp).ToList();
             return View(vm);
         }
 
@@ -96,12 +115,13 @@ namespace ReviewMyProduct.WebUI.Controllers
                 newComment.UserId = _userManager.GetUserId(User);
                 newComment.WrittenDate = DateTime.Now;
                 newComment.productId = id;
-                //newComment.UserName = _userManager.GetUserName(User);
+                newComment.UserName = _userManager.GetUserName(User);
+                newComment.numThumbsUp = 0;
+                newComment.numThumbsDown = 0;
                 _commentService.Create(newComment);
+                //return RedirectToAction("Details", id);
             }
-
             return View(vm);
-            //return RedirectToAction("Details");
         }
 
         public IActionResult ThumbsUp(int id, CreateCommentViewModel vm)
@@ -109,16 +129,34 @@ namespace ReviewMyProduct.WebUI.Controllers
             if(User.Identity.IsAuthenticated)
             {
                 // if rating found by userId exist as ThumbsUp = true(1) already
-                if (true)
+                var ratings = _ratingService.GetByCommentUserId(id, _userManager.GetUserId(User));
+                int checker = 1;
+                foreach(var rating in ratings)
+                {
+                    if(rating.ThumbsUp == true)
+                    {
+                        checker = 0;    // user can vote only if checker stays 1 
+                    }
+                }
+                if (checker == 1)       // user can vote ThumbsUp for the comment
                 {
                     Rating newRating = new Rating();
                     newRating.ThumbsUp = true;
                     newRating.CommentId = id;
                     newRating.UserId = _userManager.GetUserId(User);
                     _ratingService.Create(newRating);
+                    vm.RatingSucceed = true;
+                }
+                else if (checker == 0)
+                {
+                    vm.RatingSucceed = false;
                 }
             }
-            return View();
+            else
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+            return View(vm);
         }
 
         public IActionResult ThumbsDown(int id, CreateCommentViewModel vm)
@@ -126,24 +164,35 @@ namespace ReviewMyProduct.WebUI.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 // if rating found by userId exist as ThumbsUp = false(0) already
-                if (true)
+                var ratings = _ratingService.GetByCommentUserId(id, _userManager.GetUserId(User));
+                int checker = 1;
+                foreach (var rating in ratings)
+                {
+                    if (rating.ThumbsUp == false)
+                    {
+                        checker = 0;    // user can vote only if checker stays 1 
+                    }
+                }
+                if (checker == 1)       // user can vote ThumbsDown for the comment
                 {
                     Rating newRating = new Rating();
                     newRating.ThumbsUp = false;
                     newRating.CommentId = id;
                     newRating.UserId = _userManager.GetUserId(User);
                     _ratingService.Create(newRating);
+                    vm.RatingSucceed = true;
+                }
+                else if (checker == 0)
+                {
+                    vm.RatingSucceed = false;
                 }
             }
-            return View();
+            else
+            {
+                return RedirectToAction("SignIn", "Account");
+            }
+            return View(vm);
         }
-        
-
-    // When I have to create another page for comments/rating
-    //public IActionResult ViewComment(int id)
-    //{
-    //    var comments = _commentService.GetByProductId(id);
-    //    return View(comments);
-    //}
-}
+    
+    }
 }

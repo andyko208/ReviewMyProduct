@@ -10,16 +10,12 @@ else
 {
     @foreach (var p in Model)
     {
-        <tr>
-            <div class="content">
-                <td>
-                    <a href='@Url.Action("Details", "Product", new {id = p.Id})'>
-                        <img src="@p.ImageURL" alt="Product Image" />
-                        @p.Name
-                        @p.Type
-                    </a>
-                <td>
-            </div>   
-        </tr>
+        <div style="width:190px; text-align:center">
+            <a href='@Url.Action("Details", "Product", new {id = p.Id})'>
+                <img src="@p.ImageURL" alt="Product Image" />
+                @p.Name
+            </a>
+
+        </div>
     }
 }

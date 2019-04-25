@@ -34,5 +34,10 @@ namespace Review.Data.Implementation.Mock
         {
             return Ratings.FindAll(r => r.UserId == userId);
         }
+
+        public ICollection<Rating> GetByCommentUserId(int commentId, string userId)
+        {
+            return Ratings.FindAll(r => r.UserId == userId && r.CommentId == commentId);
+        }
     }
 }

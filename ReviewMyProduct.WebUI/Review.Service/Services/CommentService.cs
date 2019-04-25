@@ -12,6 +12,8 @@ namespace Review.Service.Services
         ICollection<Comment> GetByUserId(string userId);
         ICollection<Comment> GetByProductId(int productId);
         void Create(Comment newComment);
+        void Update(Comment updatedComment);
+        void DeleteById(int commentId);
     }
     public class CommentService : ICommentService
     {
@@ -27,6 +29,11 @@ namespace Review.Service.Services
             _commentRepository.Create(newComment);
         }
 
+        public void DeleteById(int commentId)
+        {
+            _commentRepository.DeleteById(commentId);
+        }
+
         public Comment GetById(int commentId)
         {
             return _commentRepository.GetById(commentId);
@@ -40,6 +47,11 @@ namespace Review.Service.Services
         public ICollection<Comment> GetByUserId(string userId)
         {
             return _commentRepository.GetByUserId(userId);
+        }
+
+        public void Update(Comment updatedComment)
+        {
+            _commentRepository.Update(updatedComment);
         }
     }
 }

@@ -31,6 +31,16 @@ namespace Review.Data.Implementation.EFCore
             }
         }
 
+        public ICollection<Rating> GetByCommentUserId(int commentId, string userId)
+        {
+            using (var context = new ReviewDbContext())
+            {
+                return context.Ratings
+                    .Where(r => r.CommentId == commentId && r.UserId == userId)
+                    .ToList();
+            }
+        }
+
         public Rating GetById(int ratingId)
         {
             using (var context = new ReviewDbContext())

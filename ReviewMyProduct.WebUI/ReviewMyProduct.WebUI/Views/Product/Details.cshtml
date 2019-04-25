@@ -43,7 +43,7 @@
             @foreach (var c in Model.Comments)
             {
                 <div>
-                    @c.UserId
+                    <strong>@c.UserName</strong>
                 </div>
                 <div>
                     @c.Description
@@ -53,25 +53,30 @@
                 </span>
                 <span style="border:solid; border-width:1px;">
                     <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id})'>
-                        👍 @*@c.numThumbsDown*@
+                        👍 @c.numThumbsUp
                     </a>
-                        @*display number of ThumbsUp a comment has in value*@
+                    @*display number of ThumbsUp a comment has in value*@
                     @*<button type="submit"></button>*@
                 </span>
                 <span style="border:solid; border-width:1px;">
                     <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id })'>
-                        👎 @*@c.numThumbUp*@
+                        👎 @c.numThumbsDown
                     </a>
                     @*display number of ThumbsUp a comment has in value*@
                 </span>
                 <div style="margin-top:15px"></div>
-                <hr style=""/>
+                <hr style="" />
             }
         </dd>
 
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Product.Id">Edit</a> |
+    @if (User.IsInRole("administrator"))
+    {
+        <a href='@Url.Action("Edit", "Product", new { id = Model.Product.Id })'>
+            Edit |
+        </a>
+    }
     <a asp-action="@Model.Product.Type">Back to List</a>
 </div>

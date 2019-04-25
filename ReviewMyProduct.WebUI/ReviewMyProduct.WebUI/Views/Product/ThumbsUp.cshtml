@@ -1,0 +1,11 @@
+﻿@model CreateCommentViewModel
+
+@if (Model.RatingSucceed)
+{
+    <h2>You just liked that comment!</h2>
+}
+else
+{
+    <h2>You can't like more than once on the same comment!</h2>
+}
+

@@ -11,5 +11,6 @@ namespace Review.Data.Interfaces
         Rating GetById(int ratingId);
         ICollection<Rating> GetByUserId(string userId);
         ICollection<Rating> GetByCommentId(int commentId);
+        ICollection<Rating> GetByCommentUserId(int commentId, string userId);
     }
 }

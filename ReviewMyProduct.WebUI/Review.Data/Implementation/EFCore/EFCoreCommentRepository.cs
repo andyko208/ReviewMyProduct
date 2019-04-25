@@ -21,7 +21,7 @@ namespace Review.Data.Implementation.EFCore
             }
         }
 
-        public bool DeleteById(int commentId)
+        public void DeleteById(int commentId)
         {
             using (var context = new ReviewDbContext())
             {
@@ -29,9 +29,6 @@ namespace Review.Data.Implementation.EFCore
                 context.Remove(commentToBeDeleted);
                 context.SaveChanges();
             }
-            if (GetById(commentId) == null)
-                return true;
-            return false;
         }
 
         public Comment GetById(int commentId)
@@ -67,7 +64,6 @@ namespace Review.Data.Implementation.EFCore
             using (var context = new ReviewDbContext())
             {
                 var existingComment = GetById(updatedComment.Id);
-
 
                 context.Entry(existingComment).CurrentValues.SetValues(updatedComment);
                 context.SaveChanges();
