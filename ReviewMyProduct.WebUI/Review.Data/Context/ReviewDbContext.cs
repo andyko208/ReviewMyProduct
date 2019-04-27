@@ -21,7 +21,8 @@ namespace Review.Data.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
             // Bad way of providing the connection string
-            optionBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=review;Trusted_Connection=True");
+            //optionBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=review;Trusted_Connection=True");
+            optionBuilder.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_REVIEW_DB"));
         }
         
         // Seeding - Populate database with initial data

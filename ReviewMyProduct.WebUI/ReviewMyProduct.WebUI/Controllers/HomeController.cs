@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Review.Data.Context;
 using Review.Domain.Models;
 using Review.Service.Services;
 using ReviewMyProduct.WebUI.ViewModels;
@@ -25,18 +28,38 @@ namespace ReviewMyProduct.WebUI.Controllers
             _commentService = commentService;
 
         }
-        // Home page, where user encounters first 
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index(string productType, string searchString)
         {
+            var context = new ReviewDbContext();
+
+            var products = from p in context.Products
+                           select p;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                products = products.Where(p => p.Name.Contains(searchString));
+                return View(await products.ToListAsync());
+            }
+
             return View();
         }
 
-        public IActionResult MyComments()
+        public IActionResult MyComments(MyCommentsViewModel vm)
         {
-            var userId = _userManager.GetUserId(User);
-            var comments = _commentService.GetByUserId(userId);
-
-            return View(comments);
+            if(ModelState.IsValid)
+            {
+                var userId = _userManager.GetUserId(User);
+                vm.Comments = _commentService.GetByUserId(userId);
+                ICollection<Product> products = new List<Product>();
+                foreach (var comment in vm.Comments)
+                {
+                    var product = _productService.GetById(comment.productId);
+                    products.Add(product);
+                }
+                vm.Products = products;
+            }
+            return View(vm);
         }
 
         public IActionResult DeleteComments(int id)

@@ -38,6 +38,7 @@ namespace ReviewMyProduct.WebUI.Controllers
         public IActionResult Books()
         {
             var books = _productService.GetByType("Books");
+            books = books.OrderBy(b => b.Name).ToList();
             return View(books);
         }
 
@@ -45,6 +46,7 @@ namespace ReviewMyProduct.WebUI.Controllers
         public IActionResult Clothings()
         {
             var clothings = _productService.GetByType("Clothings");
+            clothings = clothings.OrderBy(c => c.Name).ToList();
             return View(clothings);
         }
 
@@ -52,6 +54,7 @@ namespace ReviewMyProduct.WebUI.Controllers
         public IActionResult Furnitures()
         {
             var furnitures = _productService.GetByType("Furnitures");
+            furnitures = furnitures.OrderBy(f => f.Name).ToList();
             return View(furnitures);
         }
 
@@ -68,7 +71,15 @@ namespace ReviewMyProduct.WebUI.Controllers
         {
             if(ModelState.IsValid)
             {
-                _productService.Update(product);
+                var context = new ReviewDbContext();
+                var dbProducts = context.Products.Where(p => p.Id == product.Id);
+                var dbProduct = dbProducts.Single(p => p.Id == product.Id);
+                dbProduct.Name = product.Name;
+                dbProduct.Type = product.Type;
+                dbProduct.Description = product.Description;
+                dbProduct.ImageURL = product.ImageURL;
+                dbProduct.ShopURL = product.ShopURL;
+                context.SaveChanges();
                 return RedirectToAction(product.Type);
             }
             return View(product);
@@ -78,26 +89,32 @@ namespace ReviewMyProduct.WebUI.Controllers
         [HttpGet]
         public IActionResult Details(int id, CreateCommentViewModel vm)
         {
-            vm.Product = _productService.GetById(id);
-            vm.Comments = _commentService.GetByProductId(id);
-            foreach (var comment in vm.Comments)
+            
+            using (var context = new ReviewDbContext())
             {
-                var upCount = 0;
-                var downCount = 0;
-                foreach (var rating in _ratingService.GetByCommentId(comment.Id))
+                vm.Product = _productService.GetById(id);
+                vm.Comments = _commentService.GetByProductId(id);
+                foreach (var comment in vm.Comments)
                 {
-                    if (rating.ThumbsUp)
-                        upCount++;
-                    else
+                    var upCount = 0;
+                    var downCount = 0;
+                    foreach (var rating in _ratingService.GetByCommentId(comment.Id))
                     {
-                        downCount++;
+                        if (rating.ThumbsUp)
+                            upCount++;
+                        else
+                        {
+                            downCount++;
+                        }
                     }
+                    var dbComments = context.Comments.Where(c => c.productId == id);
+                    var dbComment = dbComments.Single(c => c.Id == comment.Id);
+                    dbComment.numThumbsUp = upCount;
+                    dbComment.numThumbsDown = downCount;
+                    context.SaveChanges();
                 }
-                comment.numThumbsUp = upCount;
-                comment.numThumbsDown = downCount;  // figure out how to update columns numThumbsUp in db
-                _commentService.Update(comment);    // let the sorting by numThumbsUp work
             }
-            vm.Comments = vm.Comments.OrderBy(c => c.numThumbsUp).ToList();
+            vm.Comments = vm.Comments.OrderByDescending(c => c.numThumbsUp).ToList();
             return View(vm);
         }
 
@@ -121,7 +138,7 @@ namespace ReviewMyProduct.WebUI.Controllers
                 _commentService.Create(newComment);
                 //return RedirectToAction("Details", id);
             }
-            return View(vm);
+            return View();
         }
 
         public IActionResult ThumbsUp(int id, CreateCommentViewModel vm)

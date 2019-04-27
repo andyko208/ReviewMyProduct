@@ -1,11 +1,17 @@
-﻿@{
-    ViewData["Title"] = "Index";
-}
-
-<h2>Index</h2>
+﻿@model IEnumerable<Product>
+        
 <div>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <p>Welcome, -@User.Identity.Name</p>
-    }
+        @if (Model != null)
+        {
+            @foreach (var p in Model)
+            {
+                <div style="width:190px; text-align:center">
+                    <a href='@Url.Action("Details", "Product", new {id = p.Id})'>
+                        <img src="@p.ImageURL" alt="Product Image" />
+                        @p.Name
+                    </a>
+
+                </div>
+            }
+        }
 </div>

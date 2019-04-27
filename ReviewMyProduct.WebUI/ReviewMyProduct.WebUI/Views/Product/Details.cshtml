@@ -30,43 +30,51 @@
             @Html.DisplayFor(model => model.Product.Description)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Product.ShopURL)
+            Find this product at..
         </dt>
         <dd>
             <a href="@Html.DisplayFor(model => model.Product.ShopURL)">@Html.DisplayFor(model => model.Product.ShopURL)</a>
+            <hr />
         </dd>
         <dd>
-            <a asp-action="CreateComment" asp-route-id="@Model.Product.Id">Write a comment| </a>
-            <a asp-action="ViewComment" asp-route-id="@Model.Product.Id">View comments</a>
+            <a asp-action="CreateComment" asp-route-id="@Model.Product.Id">Write a comment </a>
+            <hr />
         </dd>
         <dd>
-            @foreach (var c in Model.Comments)
+            @if (Model.Comments.Count() > 0)
             {
-                <div>
-                    <strong>@c.UserName</strong>
-                </div>
-                <div>
-                    @c.Description
-                </div>
-                <span style="margin-right:4px;">
-                    @c.WrittenDate
-                </span>
-                <span style="border:solid; border-width:1px;">
-                    <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id})'>
-                        👍 @c.numThumbsUp
-                    </a>
-                    @*display number of ThumbsUp a comment has in value*@
-                    @*<button type="submit"></button>*@
-                </span>
-                <span style="border:solid; border-width:1px;">
-                    <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id })'>
-                        👎 @c.numThumbsDown
-                    </a>
-                    @*display number of ThumbsUp a comment has in value*@
-                </span>
-                <div style="margin-top:15px"></div>
-                <hr style="" />
+                @foreach (var c in Model.Comments)
+                {
+                    <div>
+                        <strong>@c.UserName</strong>
+                    </div>
+                    <div>
+                        @c.Description
+                    </div>
+                    <span style="margin-right:4px;">
+                        @c.WrittenDate
+                    </span>
+                    <span style="border:solid; border-width:1px;">
+                        <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id})'>
+                            👍 @c.numThumbsUp
+                        </a>
+                    </span>
+                    <span style="border:solid; border-width:1px;">
+                        <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id })'>
+                            👎 @c.numThumbsDown
+                        </a>
+                    </span>
+                    <div style="margin-top:15px"></div>
+                    <hr style="" />
+                }
             }
+            else
+            {
+                <div class="alert alert-secondary">
+                    Become the first commenter for this product!
+                </div>
+            }
+
         </dd>
 
     </dl>

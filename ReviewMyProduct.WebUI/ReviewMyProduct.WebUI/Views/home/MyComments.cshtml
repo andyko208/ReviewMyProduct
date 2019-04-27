@@ -1,10 +1,11 @@
-﻿@model ICollection<Comment>
+﻿@model MyCommentsViewModel
 @{
     ViewData["Title"] = "MyComments";
 }
 
-<h2>MyComments</h2>
-@if (Model.Count() == 0)
+<h2 style="margin-bottom:25px">MyComments</h2>
+<hr />
+@if (Model.Comments.Count() == 0)
 {
     <div class="alert alert-secondary">
         You have not made comments on any products yet!
@@ -12,7 +13,7 @@
 }
 else
 {
-    foreach (var c in Model)
+    foreach (var c in Model.Comments)
     {
         <div>
             <strong>@c.UserName</strong>
@@ -30,11 +31,21 @@ else
             👎 @c.numThumbsDown
         </span>
         <span>
-            @*image url for the product that user wrote comment on*@
+            <a href='@Url.Action("DeleteComments", "home", new { id = c.Id })'>
+                Delete
+            </a>
         </span>
-        <a href='@Url.Action("DeleteComments", "home", new { id = c.Id })'>
-            Delete
-        </a>
+        <span style="float:right;">
+            @foreach (var product in Model.Products)
+            {
+                if (product.Id == c.productId)
+                {
+                    <a href='@Url.Action("Details", "Product", new {id = product.Id})'>
+                        <img src="@product.ImageURL" style="width:65px; height:90px;" />
+                    </a>
+                }
+            }
+        </span>
         <div style="margin-top:15px"></div>
         <hr style="" />
     }

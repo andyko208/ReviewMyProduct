@@ -6,3 +6,15 @@
         You don't have any products at the moment!
     </div>
 }
+else
+{
+    @foreach (var p in Model)
+    {
+        <div style="width:190px; text-align:center; display:inline-flex; margin:5px;">
+            <a href='@Url.Action("Details", "Product", new {id = p.Id})'>
+                <img src="@p.ImageURL" alt="Product Image" style="border:2px black solid"/>
+                @p.Name
+            </a>
+        </div>
+    }
+}
