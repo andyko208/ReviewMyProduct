@@ -20,9 +20,11 @@ namespace Review.Data.Context
         // Setting up the provider (SQL Server) and location of a database
         protected override void OnConfiguring(DbContextOptionsBuilder optionBuilder)
         {
-            // Bad way of providing the connection string
-            //optionBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=review;Trusted_Connection=True");
-            optionBuilder.UseSqlServer(Environment.GetEnvironmentVariable("SQLCONNSTR_REVIEW_DB"));
+            // Local machine
+            optionBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=review;Trusted_Connection=True");
+            
+            // Sql database for azure
+            //optionBuilder.UseSqlServer(@"Server=tcp:rhrudaud0.database.windows.net,1433;Initial Catalog=ReviewMyProduct;Persist Security Info=False;User ID=rhrudaud0;Password=Ksy28188;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
         
         // Seeding - Populate database with initial data

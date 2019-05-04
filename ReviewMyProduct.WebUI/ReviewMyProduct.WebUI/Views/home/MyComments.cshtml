@@ -35,18 +35,12 @@ else
                 Delete
             </a>
         </span>
-        <span style="float:right;">
-            @foreach (var product in Model.Products)
-            {
-                if (product.Id == c.productId)
-                {
-                    <a href='@Url.Action("Details", "Product", new {id = product.Id})'>
-                        <img src="@product.ImageURL" style="width:65px; height:90px;" />
-                    </a>
-                }
-            }
+        <span style="float:right; margin-top:-50px;">
+            <a href='@Url.Action("Details", "Product", new {id = c.productId})'>
+                <img src="@Model.Products.First(p => p.Id == c.productId).ImageURL" style="width:65px; height:90px;" />
+            </a>
         </span>
         <div style="margin-top:15px"></div>
-        <hr style="" />
+        <hr/>
     }
 }

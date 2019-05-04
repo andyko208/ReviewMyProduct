@@ -37,7 +37,16 @@
             <hr />
         </dd>
         <dd>
-            <a asp-action="CreateComment" asp-route-id="@Model.Product.Id">Write a comment </a>
+            <a href='@Url.Action("CreateComment", "Product", new { id = Model.Product.Id })'>
+            Write a comment!
+            </a>
+            @*<div class="form-group">
+                <label asp-for="Comment.Description" class="control-label"></label>
+                <input asp-for="Comment.Description" class="form-control" />
+                <div class="form-group">
+                    <input type="submit" value="Create Comment" onclick="CreateComment"/>
+                </div>
+            </div>*@
             <hr />
         </dd>
         <dd>
@@ -54,13 +63,13 @@
                     <span style="margin-right:4px;">
                         @c.WrittenDate
                     </span>
-                    <span style="border:solid; border-width:1px;">
-                        <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id})'>
+                    <span style="border:solid; border-width:1px;        ">
+                        <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id, bid = c.productId})'>
                             👍 @c.numThumbsUp
                         </a>
                     </span>
-                    <span style="border:solid; border-width:1px;">
-                        <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id })'>
+                    <span style="border:solid; border-width:1px;">  
+                        <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id, bid = c.productId })'>
                             👎 @c.numThumbsDown
                         </a>
                     </span>
@@ -84,6 +93,9 @@
     {
         <a href='@Url.Action("Edit", "Product", new { id = Model.Product.Id })'>
             Edit |
+        </a>
+        <a href='@Url.Action("DeleteProduct", "Product", new { id = Model.Product.Id })'>
+            Delete |
         </a>
     }
     <a asp-action="@Model.Product.Type">Back to List</a>

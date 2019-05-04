@@ -55,7 +55,10 @@ namespace ReviewMyProduct.WebUI.Controllers
                 foreach (var comment in vm.Comments)
                 {
                     var product = _productService.GetById(comment.productId);
-                    products.Add(product);
+                    if(!(products.Contains(product)))
+                    {
+                        products.Add(product);
+                    }
                 }
                 vm.Products = products;
             }

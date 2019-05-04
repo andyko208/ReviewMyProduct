@@ -1,63 +1,70 @@
-﻿<div class="dropdown" style="display:inline-flex; margin:15px;">
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" asp-action="Clothings" asp-controller="Product">Clothing</a>
-        <a class="dropdown-item" asp-action="Books" asp-controller="Product">Books</a>
-        <a class="dropdown-item" asp-action="Furnitures" asp-controller="Product">Furnitures</a>
+﻿<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <!-- Navbar content -->
+    @*Product list dropdown*@
+    <div class="dropdown" style="display:inline-flex; margin:15px; background-color:lightgray">
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="background-color:bisque">
+            <a class="dropdown-item" asp-action="Food" asp-controller="Product">Food</a>
+            <a class="dropdown-item" asp-action="Books" asp-controller="Product">Books</a>
+            <a class="dropdown-item" asp-action="Furnitures" asp-controller="Product">Furnitures</a>
+        </div>
+        <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            ≡
+        </button>
     </div>
-    <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        ≡
-    </button>
-</div>
-<div style="display:inline-flex">
-    <div class="search-container">
-        <form asp-controller="home" asp-action="Index" method="get">
-            <input type="text" name="SearchString" placeholder="Search by name" style="width:250px; border-radius:10px;">
-            <button type="submit" value="Filter"><i class="fa fa-search"></i></button>
-        </form>
+
+    @*Search bar*@
+    <div style="display:inline-flex">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline" asp-controller="home" asp-action="Index" method="get">
+                <input class="form-control mr-sm-2" type="search" name="SearchString" placeholder="Search" aria-label="Search" style="width:450px">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Filter">Search</button>
+            </form>
+        </nav>
     </div>
-</div>
-<ul class="nav" style="display:inline-flex; margin:15px; float:right" >
-    <li class="nav-item">
-        <a class="nav-link active" asp-action="Index" asp-controller="Home">Home</a>
-    </li>
-    @*Anonymous*@
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <li class="nav-item">
-            <a class="nav-link active" asp-action="Register" asp-controller="Account">Register</a>
+
+    @*Nav option bar*@
+    <ul class="nav" style="display:inline-flex; padding:15px; float:right; background-color:lightgray; border-radius:5px">
+        <li class="nav-item"style="border:3px ridge gray; margin:0 1px 0 1px; border-radius:5px">
+            <a class="nav-link active" asp-action="Index" asp-controller="Home">Home</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link active" asp-action="SignIn" asp-controller="Account">Sign In</a>
-        </li>
-    }
-    else
-    {
-        if (!User.IsInRole("administrator"))
+        @*Anonymous*@
+        @if (!User.Identity.IsAuthenticated)
         {
-            <li>
-                <a class="nav-link active">@User.Identity.Name</a>
+            <li class="nav-item" style="border:3px ridge gray; margin:0 1px 0 1px; border-radius:5px">
+                <a class="nav-link active" asp-action="Register" asp-controller="Account">Register</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" asp-action="MyComments" asp-controller="home">My Comments</a>
-            </li>
-            @*<li class="nav-item">
-                    <a class="nav-link active" asp-action="Product-Request" asp-controller="home">Request</a>
-                </li>*@
-            <li class="nav-item">
-                <a class="nav-link active" asp-action="SignOut" asp-controller="Account">Sign Out</a>
+            <li class="nav-item" style="border:3px ridge gray; margin:0 1px 0 1px; border-radius:5px">
+                <a class="nav-link active" asp-action="SignIn" asp-controller="Account">Sign In</a>
             </li>
         }
         else
         {
-            <li class="nav-item">
-                <a class="nav-link active" asp-action="create" asp-controller="Administrator">Add Product</a>
-            </li>
-            @*<li class="nav-item">
-                    <a class="nav-link active" asp-action="Product-Request" asp-controller="home">Request</a>
-                </li>*@
-            <li class="nav-item">
-                <a class="nav-link active" asp-action="SignOut" asp-controller="Account">Sign Out</a>
-            </li>
+            // User
+            if (!User.IsInRole("administrator"))
+            {
+                <li>
+                    <a class="nav-link active">@User.Identity.Name</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-action="MyComments" asp-controller="home">My Comments</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-action="SignOut" asp-controller="Account">Sign Out</a>
+                </li>
+            }
+            // Administrtor
+            else
+            {
+                <li>
+                    <a class="nav-link active">Administrator</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-action="create" asp-controller="Administrator">Add Product</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-action="SignOut" asp-controller="Account">Sign Out</a>
+                </li>
+            }
         }
-    }
-</ul>
+    </ul>
+</nav>

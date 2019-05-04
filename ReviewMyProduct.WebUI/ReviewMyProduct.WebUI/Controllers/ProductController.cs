@@ -20,7 +20,7 @@ namespace ReviewMyProduct.WebUI.Controllers
         private readonly ICommentService _commentService;
         private readonly IRatingService _ratingService;
 
-        public ProductController(UserManager<AppUser> userManager, IProductService productService, 
+        public ProductController(UserManager<AppUser> userManager, IProductService productService,
             ICommentService commentService, IRatingService ratingService)
         {
             _userManager = userManager;
@@ -43,11 +43,11 @@ namespace ReviewMyProduct.WebUI.Controllers
         }
 
         // List of product, type: Clothing
-        public IActionResult Clothings()
+        public IActionResult Food()
         {
-            var clothings = _productService.GetByType("Clothings");
-            clothings = clothings.OrderBy(c => c.Name).ToList();
-            return View(clothings);
+            var foods = _productService.GetByType("Food");
+            foods = foods.OrderBy(c => c.Name).ToList();
+            return View(foods);
         }
 
         // List of product, type: Furniture
@@ -69,7 +69,7 @@ namespace ReviewMyProduct.WebUI.Controllers
         [HttpPost]
         public IActionResult Edit(Product product)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var context = new ReviewDbContext();
                 var dbProducts = context.Products.Where(p => p.Id == product.Id);
@@ -85,11 +85,26 @@ namespace ReviewMyProduct.WebUI.Controllers
             return View(product);
         }
 
+        public IActionResult DeleteProduct(int id)
+        {
+            var product = _productService.GetById(id);
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteProduct(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                _productService.DeleteById(product.Id);
+            }
+            return RedirectToAction("Index", "Administrator");
+        }
+
         // Specific details of a certain product
         [HttpGet]
         public IActionResult Details(int id, CreateCommentViewModel vm)
         {
-            
             using (var context = new ReviewDbContext())
             {
                 vm.Product = _productService.GetById(id);
@@ -117,7 +132,7 @@ namespace ReviewMyProduct.WebUI.Controllers
             vm.Comments = vm.Comments.OrderByDescending(c => c.numThumbsUp).ToList();
             return View(vm);
         }
-
+        [Authorize]
         [HttpGet]
         public IActionResult CreateComment() => View();
 
@@ -125,28 +140,30 @@ namespace ReviewMyProduct.WebUI.Controllers
         [HttpPost]
         public IActionResult CreateComment(int id, CreateCommentViewModel vm)
         {
-            if (ModelState.IsValid)
+            if(ModelState.IsValid)
             {
                 Comment newComment = vm.Comment;
-                
+
                 newComment.UserId = _userManager.GetUserId(User);
                 newComment.WrittenDate = DateTime.Now;
                 newComment.productId = id;
                 newComment.UserName = _userManager.GetUserName(User);
                 newComment.numThumbsUp = 0;
                 newComment.numThumbsDown = 0;
+                vm.Product = _productService.GetById(id);
                 _commentService.Create(newComment);
-                //return RedirectToAction("Details", id);
+
             }
-            return View();
+            return RedirectToAction("Details", "Product", new {id= vm.Product.Id, vm});
         }
 
-        public IActionResult ThumbsUp(int id, CreateCommentViewModel vm)
+        public IActionResult ThumbsUp(int bid, int id, CreateCommentViewModel vm)
         {
             if(User.Identity.IsAuthenticated)
             {
                 // if rating found by userId exist as ThumbsUp = true(1) already
                 var ratings = _ratingService.GetByCommentUserId(id, _userManager.GetUserId(User));
+                vm.Product = _productService.GetById(bid);
                 int checker = 1;
                 foreach(var rating in ratings)
                 {
@@ -167,22 +184,24 @@ namespace ReviewMyProduct.WebUI.Controllers
                 else if (checker == 0)
                 {
                     vm.RatingSucceed = false;
+                    return View(vm);
                 }
             }
             else
             {
                 return RedirectToAction("SignIn", "Account");
             }
-            return View(vm);
+            return RedirectToAction("Details", "Product", new { id = bid, vm });
         }
 
-        public IActionResult ThumbsDown(int id, CreateCommentViewModel vm)
+        public IActionResult ThumbsDown(int bid, int id, CreateCommentViewModel vm)
         {
             if (User.Identity.IsAuthenticated)
             {
                 // if rating found by userId exist as ThumbsUp = false(0) already
                 var ratings = _ratingService.GetByCommentUserId(id, _userManager.GetUserId(User));
                 int checker = 1;
+                vm.Product = _productService.GetById(bid);
                 foreach (var rating in ratings)
                 {
                     if (rating.ThumbsUp == false)
@@ -202,13 +221,14 @@ namespace ReviewMyProduct.WebUI.Controllers
                 else if (checker == 0)
                 {
                     vm.RatingSucceed = false;
+                    return View(vm);
                 }
             }
             else
             {
                 return RedirectToAction("SignIn", "Account");
             }
-            return View(vm);
+            return RedirectToAction("Details", "Product", new { id = bid, vm });
         }
     
     }

@@ -85,14 +85,8 @@ namespace Cozy.WebUI.Controllers
                     var isUser = await _userManager.IsInRoleAsync(user, "user");
 
                     // redirect to right controller (based on role)
-                    if(isUser)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    else
-                    {
-                        return RedirectToAction("Index", "Administrator");
-                    }
+                    return RedirectToAction("Index", "Home");
+
                 }
                 else
                 {

@@ -1,12 +1,8 @@
 ﻿@model CreateCommentViewModel
 
-@if (Model.RatingSucceed)
-{
-    <h2>You just liked that comment!</h2>
-    <a asp-action="@Model.Product.Type" asp-route-id="@Model.Product.Id">Back to List</a>
-}
-else
-{
-    <h2>You can't like more than once on the same comment!</h2>
-}
+<h2>You can't like more than once on the same comment!</h2>
+<a href='@Url.Action("Details", "Product", new { id = Model.Product.Id})'>
+    Back to Details
+</a>
+
 

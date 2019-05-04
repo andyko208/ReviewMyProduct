@@ -12,6 +12,7 @@ namespace Review.Service.Services
         ICollection<Product> GetByType(string type);
         void Create(Product newProduct);
         void Update(Product updatedProduct);
+        void DeleteById(int productId);
     }
     public class ProductService : IProductService
     {
@@ -25,6 +26,11 @@ namespace Review.Service.Services
         public void Create(Product newProduct)
         {
             _productRepository.Create(newProduct);
+        }
+
+        public void DeleteById(int productId)
+        {
+            _productRepository.DeleteById(productId);
         }
 
         public Product GetById(int productId)
