@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Product>
+
+<div>
+    @if (Model != null && Model.Count() > 0)
+    {
+        @foreach (var p in Model)
+        {
+            <div style="width:190px; text-align:center; display:inline-flex; margin:15px 28px 15px 0">
+                <a href='@Url.Action("Details", "Product", new {id = p.Id})'>
+                    <img src="@p.ImageURL" alt="Product Image" />
+                    @p.Name
+                </a>
+
+            </div>
+        }
+    }
+    else
+    {
+        <h2 style="text-align:center;padding:100px 0 100px 0">No results found.</h2>
+    }
+</div>
