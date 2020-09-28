@@ -13,6 +13,6 @@ namespace Review.Domain.Models
         public string ImageURL { get; set; }
         public string ShopURL { get; set; }
 
-        public Comment Comment { get; set; }
+        public ICollection<Comment> Comments { get; set; }  // 4/15 did not add migration yet, to save this, add migration
     }
 }

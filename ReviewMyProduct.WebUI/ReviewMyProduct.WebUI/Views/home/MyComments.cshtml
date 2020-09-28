@@ -1,0 +1,46 @@
+﻿@model MyCommentsViewModel
+@{
+    ViewData["Title"] = "MyComments";
+}
+
+<h2 style="margin-bottom:25px">MyComments</h2>
+<hr />
+@if (Model.Comments.Count() == 0)
+{
+    <div class="alert alert-secondary">
+        You have not made comments on any products yet!
+    </div>
+}
+else
+{
+    foreach (var c in Model.Comments)
+    {
+        <div>
+            <strong>@c.UserName</strong>
+        </div>
+        <div>
+            @c.Description
+        </div>
+        <span style="margin-right:4px;">
+            @c.WrittenDate
+        </span>
+        <span style="border:solid; border-width:1px;">
+            👍 @c.numThumbsUp
+        </span>
+        <span style="border:solid; border-width:1px; margin-right:5px;">
+            👎 @c.numThumbsDown
+        </span>
+        <span>
+            <a href='@Url.Action("DeleteComments", "home", new { id = c.Id })'>
+                Delete
+            </a>
+        </span>
+        <span style="float:right; margin-top:-50px;">
+            <a href='@Url.Action("Details", "Product", new {id = c.productId})'>
+                <img src="@Model.Products.First(p => p.Id == c.productId).ImageURL" style="width:65px; height:90px;" />
+            </a>
+        </span>
+        <div style="margin-top:15px"></div>
+        <hr/>
+    }
+}

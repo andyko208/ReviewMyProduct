@@ -19,17 +19,21 @@ namespace Review.Data.Implementation.Mock
             return newComment;
         }
 
-        public bool DeleteById(int commentId)
+        public void DeleteById(int commentId)
         {
             var comment = GetById(commentId);
             Comments.Remove(comment);
 
-            return true;
         }
 
         public Comment GetById(int commentId)
         {
             return Comments.Single(c => c.Id == commentId);
+        }
+
+        public ICollection<Comment> GetByProductId(int productId)
+        {
+            return Comments.FindAll(c => c.productId == productId);
         }
 
         public ICollection<Comment> GetByUserId(string userId)

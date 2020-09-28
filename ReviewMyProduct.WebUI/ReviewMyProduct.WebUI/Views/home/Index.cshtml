@@ -1,11 +1,85 @@
-﻿@{
-    ViewData["Title"] = "Index";
-}
+﻿@model IEnumerable<Product>
 
-<h2>Index</h2>
 <div>
-    @if (User.Identity.IsAuthenticated)
+    @if (Model != null)
     {
-        <p>Welcome, -@User.Identity.Name</p>
+        @foreach (var p in Model)
+        {
+            <div style="width:190px; text-align:center; display:inline-flex; margin:15px 28px 15px 0">
+                <a href='@Url.Action("Details", "Product", new {id = p.Id})'>
+                    <img src="@p.ImageURL" alt="Product Image" />
+                    @p.Name
+                </a>
+
+            </div>
+        }
     }
 </div>
+
+<body id="page-top">
+    <div style="margin-top:50px"></div>
+    <header class="bg-primary text-white">
+        <div class="container text-center">
+            <h1>Welcome to ReviewMyProduct!</h1>
+            @if (User.Identity.IsAuthenticated)
+            {
+            <p class="lead">You are signed in as -@User.Identity.Name</p>
+            }
+            else
+            {
+                <p class="lead">You are automatically signed in as a guest</p>
+            }
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>About this page</h2>
+                    <p class="lead">
+                        This is a community where people can discuss about the products that they've used.
+                        Users can write comments on the products, and they can also vote so that others can see.
+                    </p>
+                    <ul>
+                        <li>Using the drop down bar on left-top corner, or the search bar, look for products!</></li>
+                        <li>View details about the products along with comments that other people made.</li>
+                        <li>Leave comments!</li>
+                        <li>Rate others comments and let the review go on!</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Services we offer</h2>
+                    <p class="lead">We provide users to free-talk out in public.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Contact us</h2>
+                    <p class="lead"> Actually, don't.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright © ReviewMyProduct 2019</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+</body>

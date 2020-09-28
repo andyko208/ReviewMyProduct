@@ -1,5 +1,5 @@
 ﻿@model ICollection<Product>
-<h2>Furnitures</h2>
+<h2>Food</h2>
 @if (Model.Count() == 0)
 {
     <div class="alert alert-secondary">
@@ -12,7 +12,7 @@ else
     {
         <div style="width:190px; text-align:center; display:inline-flex; margin:5px;">
             <a href='@Url.Action("Details", "Product", new {id = p.Id})'>
-                <img src="@p.ImageURL" alt="Product Image" style="border:2px black solid"/>
+                <img src="@p.ImageURL" alt="Product Image" style="border:2px solid black" />
                 @p.Name
             </a>
         </div>

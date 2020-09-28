@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Review.Data.Context;
 
 namespace Review.Data.Migrations
 {
     [DbContext(typeof(ReviewDbContext))]
-    partial class ReviewDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190416223355_relationship-fix-product-comment")]
+    partial class relationshipfixproductcomment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,8 +45,8 @@ namespace Review.Data.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "9943f7b0-1c8d-42a3-ab4d-b23bd1448512", ConcurrencyStamp = "c2bafb59-d659-4567-9226-f25185a6d0f6", Name = "user", NormalizedName = "USER" },
-                        new { Id = "04cfa20c-e7e8-4f83-8740-8ac85757746c", ConcurrencyStamp = "a81b6f0a-429d-47c1-aafb-85aaf215fb87", Name = "administrator", NormalizedName = "ADMINISTRATOR" }
+                        new { Id = "4bc1c8a9-d836-4e7c-8e35-d2bc410569b2", ConcurrencyStamp = "d35cce2f-b2f1-442e-b6bd-9b570042ef6b", Name = "user", NormalizedName = "USER" },
+                        new { Id = "5a943f66-31cb-4e79-bbea-3cf5da5cef7b", ConcurrencyStamp = "2e6f53ae-a72e-4c5e-85fc-3a9e949c20d6", Name = "administrator", NormalizedName = "ADMINISTRATOR" }
                     );
                 });
 
@@ -199,13 +201,7 @@ namespace Review.Data.Migrations
 
                     b.Property<string>("UserId");
 
-                    b.Property<string>("UserName");
-
                     b.Property<DateTime>("WrittenDate");
-
-                    b.Property<int>("numThumbsDown");
-
-                    b.Property<int>("numThumbsUp");
 
                     b.Property<int>("productId");
 

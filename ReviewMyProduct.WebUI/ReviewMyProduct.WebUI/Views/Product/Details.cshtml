@@ -1,0 +1,102 @@
+﻿@model CreateCommentViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <img src="@Html.DisplayFor(model => model.Product.ImageURL)" />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Type)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Type)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Product.Description)
+        </dd>
+        <dt>
+            Find this product at..
+        </dt>
+        <dd>
+            <a href="@Html.DisplayFor(model => model.Product.ShopURL)">@Html.DisplayFor(model => model.Product.ShopURL)</a>
+            <hr />
+        </dd>
+        <dd>
+            <a href='@Url.Action("CreateComment", "Product", new { id = Model.Product.Id })'>
+            Write a comment!
+            </a>
+            @*<div class="form-group">
+                <label asp-for="Comment.Description" class="control-label"></label>
+                <input asp-for="Comment.Description" class="form-control" />
+                <div class="form-group">
+                    <input type="submit" value="Create Comment" onclick="CreateComment"/>
+                </div>
+            </div>*@
+            <hr />
+        </dd>
+        <dd>
+            @if (Model.Comments.Count() > 0)
+            {
+                @foreach (var c in Model.Comments)
+                {
+                    <div>
+                        <strong>@c.UserName</strong>
+                    </div>
+                    <div>
+                        @c.Description
+                    </div>
+                    <span style="margin-right:4px;">
+                        @c.WrittenDate
+                    </span>
+                    <span style="border:solid; border-width:1px;        ">
+                        <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id, bid = c.productId})'>
+                            👍 @c.numThumbsUp
+                        </a>
+                    </span>
+                    <span style="border:solid; border-width:1px;">  
+                        <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id, bid = c.productId })'>
+                            👎 @c.numThumbsDown
+                        </a>
+                    </span>
+                    <div style="margin-top:15px"></div>
+                    <hr style="" />
+                }
+            }
+            else
+            {
+                <div class="alert alert-secondary">
+                    Become the first commenter for this product!
+                </div>
+            }
+
+        </dd>
+
+    </dl>
+</div>
+<div>
+    @if (User.IsInRole("administrator"))
+    {
+        <a href='@Url.Action("Edit", "Product", new { id = Model.Product.Id })'>
+            Edit |
+        </a>
+        <a href='@Url.Action("DeleteProduct", "Product", new { id = Model.Product.Id })'>
+            Delete |
+        </a>
+    }
+    <a asp-action="@Model.Product.Type">Back to List</a>
+</div>

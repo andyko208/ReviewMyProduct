@@ -39,7 +39,7 @@ namespace Review.Data.Implementation.EFCore
         {
             using (var context = new ReviewDbContext())
             {
-                return context.Products.Single(p => p.Id == productId);
+                return context.Products.SingleOrDefault(p => p.Id == productId);
             }
         }
 

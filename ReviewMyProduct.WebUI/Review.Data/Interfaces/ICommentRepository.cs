@@ -10,6 +10,7 @@ namespace Review.Data.Interfaces
         // Read
         Comment GetById(int commentId);
         ICollection<Comment> GetByUserId(string userId);
+        ICollection<Comment> GetByProductId(int productId);
 
         // Create
         Comment Create(Comment newComment);
@@ -18,6 +19,6 @@ namespace Review.Data.Interfaces
         Comment Update(Comment updatedComment);
 
         // Delete
-        bool DeleteById(int commentId);
+        void DeleteById(int commentId);
     }
 }

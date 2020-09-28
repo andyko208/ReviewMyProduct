@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20190226023048_identity-provider.cs" />
     <Compile Remove="Migrations\20190226023650_identity-provider.cs" />
     <Compile Remove="Migrations\20190226023805_identity-provider.cs" />
+    <Compile Remove="Migrations\20190412223300_product-comment-relationship-fix.cs" />
+    <Compile Remove="Migrations\20190415054822_relationship-fix-comment-product.cs" />
   </ItemGroup>
 
   <ItemGroup>
