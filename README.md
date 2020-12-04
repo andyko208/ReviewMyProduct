@@ -10,10 +10,7 @@ ReviewMyProduct is a webpage to share reviews on a certain product globally.
 - Communicate and rate reviews with ease.
 - Find the best product by categories.
 
-## Getting Started
-https://discord.com/api/oauth2/authorize?client_id=709243803810136095&permissions=0&scope=bot
-
-## Commands
+## View
 
 Find your product by categories.
 
@@ -32,5 +29,8 @@ View the product, read other's reviews, rate the reviews.
 - HTML/CSS
 - Javascript
 
-## Not published YET!
+## View in web
+https://andyko208.github.io/ReviewMyProduct/
+
+## Not online
 Has been published once, currently down for more updates.
