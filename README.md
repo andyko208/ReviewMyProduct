@@ -26,7 +26,7 @@ View the product, read other's reviews, rate the reviews.
 
 ## Built with
 - C#
-- Javascript
+- CSS
 
 ## View in web
 https://andyko208.github.io/ReviewMyProduct/
