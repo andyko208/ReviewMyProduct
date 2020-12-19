@@ -26,7 +26,6 @@ View the product, read other's reviews, rate the reviews.
 
 ## Built with
 - C#
-- HTML/CSS
 - Javascript
 
 ## View in web
