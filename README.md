@@ -30,7 +30,7 @@ View the product, read other's reviews, rate the reviews.
 - CSS
 
 ## View in web
-https://andyko208.github.io/ReviewMyProduct/
+https://andyko208.github.io/ReviewMyProduct/ (NOT currently available yet)
 
 ## Not online
 Has been published once, currently down for more updates.
