@@ -1,29 +1,11 @@
-﻿@model IEnumerable<Product>
-
-<div>
-    @if (Model != null)
-    {
-        @foreach (var p in Model)
-        {
-            <div style="width:190px; text-align:center; display:inline-flex; margin:15px 28px 15px 0">
-                <a href='@Url.Action("Details", "Product", new {id = p.Id})'>
-                    <img src="@p.ImageURL" alt="Product Image" />
-                    @p.Name
-                </a>
-
-            </div>
-        }
-    }
-</div>
-
-<body id="page-top">
+﻿<body id="page-top">
     <div style="margin-top:50px"></div>
-    <header class="bg-primary text-white">
+    <header style="color: #fff!important; padding: 156px 0 100px;display: block;box-sizing: border-box; background-color:cadetblue">
         <div class="container text-center">
             <h1>Welcome to ReviewMyProduct!</h1>
             @if (User.Identity.IsAuthenticated)
             {
-            <p class="lead">You are signed in as -@User.Identity.Name</p>
+                <p class="lead" style="color:chartreuse">You are signed in as -@User.Identity.Name</p>
             }
             else
             {
@@ -32,7 +14,7 @@
         </div>
     </header>
 
-    <section id="about">
+    <section id="about" style="background-color:beige">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
@@ -63,7 +45,7 @@
         </div>
     </section>
 
-    <section id="contact">
+    <section id="contact" style="background-color:bisque">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">

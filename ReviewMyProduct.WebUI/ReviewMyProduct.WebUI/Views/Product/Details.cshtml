@@ -7,11 +7,10 @@
 <h2>Details</h2>
 
 <div>
-    <h4>Product</h4>
     <hr />
-    <img src="@Html.DisplayFor(model => model.Product.ImageURL)" />
+    <img src="@Html.DisplayFor(model => model.Product.ImageURL)" style="border:2px black solid" />
     <dl class="dl-horizontal">
-        <dt>
+        <dt style="margin-top:15px;">
             @Html.DisplayNameFor(model => model.Product.Name)
         </dt>
         <dd>
@@ -63,16 +62,19 @@
                     <span style="margin-right:4px;">
                         @c.WrittenDate
                     </span>
-                    <span style="border:solid; border-width:1px;        ">
-                        <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id, bid = c.productId})'>
-                            👍 @c.numThumbsUp
-                        </a>
-                    </span>
-                    <span style="border:solid; border-width:1px;">  
-                        <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id, bid = c.productId })'>
-                            👎 @c.numThumbsDown
-                        </a>
-                    </span>
+                    <div style="position:center">
+                        <span style="border:solid; border-width:1px;">
+                            <a href='@Url.Action("ThumbsUp", "Product", new { id = c.Id, bid = c.productId})' style="background-color:azure">
+                                👍 @c.numThumbsUp
+                            </a>
+                        </span>
+                        <span style="border:solid; border-width:1px;">
+                            <a href='@Url.Action("ThumbsDown", "Product", new { id = c.Id, bid = c.productId })' style="background-color:azure">
+                                👎 @c.numThumbsDown
+                            </a>
+                        </span>
+                    </div>
+                    
                     <div style="margin-top:15px"></div>
                     <hr style="" />
                 }

@@ -29,7 +29,12 @@ namespace ReviewMyProduct.WebUI.Controllers
 
         }
 
-        public async Task<IActionResult> Index(string productType, string searchString)
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> SearchPage(string productType, string searchString)
         {
             var context = new ReviewDbContext();
 
